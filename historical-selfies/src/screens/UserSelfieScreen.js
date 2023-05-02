@@ -36,9 +36,12 @@ export default function UserSelfieScreen({ navigation }) {
         });
 
         if (!result.cancelled) {
-            const { uri } = result;
-            setImage(uri);
-            saveImage(uri);
+            const asset = result.assets && result.assets[0];
+            if (asset) {
+                const { uri } = asset;
+                setImage(uri);
+                saveImage(uri);
+            }
         }
     };
 
@@ -51,7 +54,7 @@ export default function UserSelfieScreen({ navigation }) {
                 from: uri,
                 to: newPath,
             });
-            navigation.navigate('Results', { imagePath: newPath });
+            navigation.navigate('MorphingScreen', { imagePath: newPath });
         } catch (error) {
             console.log(error);
         }

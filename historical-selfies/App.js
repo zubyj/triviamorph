@@ -5,12 +5,12 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import HomeScreen from './src/screens/HomeScreen';
 import UserSelfieScreen from './src/screens/UserSelfieScreen';
-import ResultsScreen from './src/screens/ResultsScreen';
+import MorphingScreen from './src/screens/MorphingScreen';
 
 const MainNavigator = createStackNavigator({
   Home: { screen: HomeScreen },
   UserSelfie: { screen: UserSelfieScreen },
-  Results: { screen: ResultsScreen },
+  MorphingScreen: { screen: MorphingScreen },
 });
 
 const AppContainer = createAppContainer(MainNavigator);
