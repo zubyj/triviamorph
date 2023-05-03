@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Image, Button } from 'react-native';
+import { MorphButton } from '../MorphButton';
 
-export default function ResultsScreen({ navigation }) {
+import tomCruise from '../../assets/tom-cruise.webp';
+
+export default function MorphingScreen({ navigation }) {
     const imagePath = navigation.getParam('imagePath', null);
 
     return (
@@ -9,7 +12,7 @@ export default function ResultsScreen({ navigation }) {
             {imagePath && (
                 <Image source={{ uri: imagePath }} style={styles.image} resizeMode="contain" />
             )}
-            <Button title="Home" onPress={() => navigation.navigate('Home')} />
+            <MorphButton firstImageRef={tomCruise} secondImageRef={{ uri: imagePath }} />
         </View>
     );
 }

@@ -5,7 +5,7 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <Button
-                title="Let's get started!"
+                title="Start the game"
                 onPress={() => navigation.navigate('UserSelfie')}
             />
         </View>

@@ -20,7 +20,7 @@ export default function UserSelfieScreen({ navigation }) {
             quality: 0.1,
         });
 
-        if (!result.cancelled) {
+        if (!result.canceled) {
             const { uri } = result;
             setImage(uri);
             saveImage(uri);
@@ -35,7 +35,7 @@ export default function UserSelfieScreen({ navigation }) {
             quality: 0.1,
         });
 
-        if (!result.cancelled) {
+        if (!result.canceled) {
             const asset = result.assets && result.assets[0];
             if (asset) {
                 const { uri } = asset;
