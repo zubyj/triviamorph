@@ -6,34 +6,46 @@ export default function ImageViewScreen({ navigation }) {
     const imagePath = navigation.getParam('imagePath', null);
 
     const isImageValid = async () => {
-        const data = new FormData();
+        try {
+            const response = await fetch(imagePath);
+            const blob = await response.blob();
+            const base64Image = await blobToBase64(blob);
+            const uriImage = `data:${blob.type};base64,${base64Image}`;
 
-        data.append('firstImageRef', imagePath);
-        fetch(
-            'https://pyaar.ai/morph/upload', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'ImageMorpherV1',
-            },
-            body: data,
+            const data = new FormData();
+            data.append('firstImageRef', uriImage);
+
+            const responseJson = await fetch('https://pyaar.ai/morph/upload', {
+                method: 'POST',
+                headers: {
+                    Authorization: 'ImageMorpherV1',
+                },
+                body: data,
+            });
+
+            if (!responseJson.ok) {
+                throw responseJson;
+            }
+
+            console.log('Image upload was successful');
+            return responseJson.data;
+        } catch (error) {
+            console.log('Image upload failed');
+            console.log(JSON.stringify(error));
         }
-        )
-            .then(res => {
-                if (!res.ok) {
-                    throw res
-                }
-                return res.json()
-            })
-            .then(resJson => {
-                console.log('Image upload was successful')
-                // On success, hide the loading spinner
-                return resJson.data
-            })
-            .catch((error) => {
-                console.log('Image upload failed')
-                console.log(JSON.stringify(error))
-            })
-    }
+    };
+
+    const blobToBase64 = (blob) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onerror = reject;
+            reader.onload = () => {
+                resolve(reader.result.split(',')[1]);
+            };
+            reader.readAsDataURL(blob);
+        });
+    };
+
 
     return (
         <View style={styles.container}>
