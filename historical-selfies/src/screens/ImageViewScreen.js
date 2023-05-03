@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Image, Button } from 'react-native';
 
-export default function ResultsScreen({ navigation }) {
+export default function ImageViewScreen({ navigation }) {
     const imagePath = navigation.getParam('imagePath', null);
 
     return (

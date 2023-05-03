@@ -4,13 +4,11 @@ import { StyleSheet, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import HomeScreen from './src/screens/HomeScreen';
-import UserSelfieScreen from './src/screens/UserSelfieScreen';
-import MorphingScreen from './src/screens/MorphingScreen';
+import ImageViewScreen from './src/screens/ImageViewScreen';
 
 const MainNavigator = createStackNavigator({
   Home: { screen: HomeScreen },
-  UserSelfie: { screen: UserSelfieScreen },
-  MorphingScreen: { screen: MorphingScreen },
+  ImageView: { screen: ImageViewScreen },
 });
 
 const AppContainer = createAppContainer(MainNavigator);
