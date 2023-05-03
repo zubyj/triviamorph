@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
+import { StyleSheet, View, Button, Text, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 
 export default function HomeScreen({ navigation }) {
 
-    const [image, setImage] = useState(null);
+    const IMG_UPLOAD_BTN = require('../../assets/happy-face-256.png');
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -25,7 +25,6 @@ export default function HomeScreen({ navigation }) {
         if (!result.canceled) {
             if (asset) {
                 const { uri } = asset;
-                setImage(uri);
                 saveImage(uri);
             }
         }
@@ -48,7 +47,11 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Button title="Select an Image" onPress={pickImage} />
+            <TouchableOpacity
+                onPress={pickImage}
+            >
+                <Image source={IMG_UPLOAD_BTN} />
+            </TouchableOpacity>
         </View>
     );
 }
