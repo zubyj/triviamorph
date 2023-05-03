@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Image, Button } from 'react-native';
 import { MorphButton } from '../MorphButton';
+import { ImageUploadButton } from '../buttons/ImageUploadButton';
 
 import tomCruise from '../../assets/tom-cruise.webp';
 
@@ -13,6 +14,7 @@ export default function MorphingScreen({ navigation }) {
                 <Image source={{ uri: imagePath }} style={styles.image} resizeMode="contain" />
             )}
             <MorphButton firstImageRef={tomCruise} secondImageRef={{ uri: imagePath }} />
+            < ImageUploadButton />
         </View>
     );
 }

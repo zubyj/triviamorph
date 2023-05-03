@@ -6,6 +6,7 @@ import { Camera } from 'expo-camera';
 
 export default function UserSelfieScreen({ navigation }) {
     const [image, setImage] = useState(null);
+    const morph_upload_endpoint = "https://pyaar.ai/morph/upload";
 
     const takePhoto = async () => {
         const { status } = await Camera.requestCameraPermissionsAsync();
@@ -23,7 +24,7 @@ export default function UserSelfieScreen({ navigation }) {
         if (!result.canceled) {
             const { uri } = result;
             setImage(uri);
-            saveImage(uri);
+            uploadImage(uri);
         }
     };
 
@@ -40,31 +41,22 @@ export default function UserSelfieScreen({ navigation }) {
             if (asset) {
                 const { uri } = asset;
                 setImage(uri);
-                saveImage(uri);
+                uploadImage(uri);
             }
         }
     };
 
-    const saveImage = async (uri) => {
-        const fileName = uri.split('/').pop();
-        const newPath = FileSystem.documentDirectory + fileName;
-
-        try {
-            await FileSystem.moveAsync({
-                from: uri,
-                to: newPath,
-            });
-            navigation.navigate('MorphingScreen', { imagePath: newPath });
-        } catch (error) {
-            console.log(error);
-        }
+    const uploadImage = async (uri) => {
+        // Implement your image upload logic here using the morph_upload_endpoint
+        // After a successful upload, navigate to the MorphingScreen with the image URL or path
+        // For example: navigation.navigate('MorphingScreen', { imagePath: imageUrl });
     };
 
     return (
         <View style={styles.container}>
-            <Text>Take a picture of your face</Text>
+            <Text>Upload a face</Text>
             <Button title="Take a selfie" onPress={takePhoto} />
-            <Button title="Select from library" onPress={pickImage} />
+            <Button title="Select photo from library" onPress={pickImage} />
         </View>
     );
 }
