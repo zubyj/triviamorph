@@ -13,10 +13,16 @@ export default function HomeScreen({ navigation }) {
             allowsEditing: true,
             aspect: [4, 3],
             quality: 0.1,
+            base64: true,
         });
 
+        const asset = result.assets && result.assets[0];
+
+        if (!asset) {
+            throw new Error('No image selected');
+        }
+
         if (!result.canceled) {
-            const asset = result.assets && result.assets[0];
             if (asset) {
                 const { uri } = asset;
                 setImage(uri);
