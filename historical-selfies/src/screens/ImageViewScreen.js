@@ -2,6 +2,28 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Image, Text, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-paper';
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#222',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamiy: 'sans-serif',
+    },
+    image: {
+        width: 300,
+        height: 400,
+    },
+    text: {
+        color: '#fff',
+        fontSize: 15,
+    },
+    button: {
+        backgroundColor: '#000',
+        padding: 20
+    }
+});
+
 export default function ImageViewScreen({ navigation }) {
 
     const MORPH_ENDPOINT = 'https://pyaar.ai/morph';
@@ -73,43 +95,37 @@ export default function ImageViewScreen({ navigation }) {
         )
     }
 
+    if (isMorphUriReady) {
+        return (
+            <View style={styles.container}>
+                <Button
+                    mode="contained"
+                    onPress={() => navigation.navigate('Home')}
+                    style={styles.button}
+                >
+                    <Text style={styles.text}
+                    >
+                        Home
+                    </Text>
+                </Button>
+                <Image source={{ uri: morphUri }} style={styles.image} resizeMode="contain" />
+            </View>
+        )
+
+    }
+
     return (
         <View style={styles.container}>
             <Button
-                mode="contained"
-                onPress={() => navigation.navigate('Home')}
+                mode="outlined"
+                width={200}
+                style={styles.button}
+                onPress={() => getMorph()}
             >
-                Home
-            </Button>
-            {isMorphUriReady && (
-                <Image source={{ uri: morphUri }} style={styles.image} resizeMode="contain" />
-            )}
-            {!isMorphUriReady && (
-                <Button
-                    mode="contained"
-                    onPress={() => getMorph()}
-                >
+                <Text style={styles.text}>
                     MORPH
-                </Button>
-            )}
-        </View >
+                </Text>
+            </Button>
+        </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#222',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamiy: 'sans-serif',
-    },
-    image: {
-        width: 300,
-        height: 400,
-    },
-    text: {
-        color: 'white',
-        fontSize: 15,
-    }
-});
