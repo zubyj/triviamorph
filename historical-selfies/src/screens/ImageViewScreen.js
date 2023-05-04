@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Image, Button, Text, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Image, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-paper';
 
 export default function ImageViewScreen({ navigation }) {
 
@@ -72,11 +73,28 @@ export default function ImageViewScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            {isMorphUriReady && (
-                <Image source={{ uri: morphUri }} style={styles.image} resizeMode="contain" />
-            )}
-            <Button title="Morph" onPress={() => getMorph()} />
-            <Button title="Home" onPress={() => navigation.navigate('Home')} />
+            <Button
+                mode="contained"
+                style={styles.button}
+                buttonColor={'black'}
+                onPress={() => navigation.navigate('Home')}
+            >
+                Home
+            </Button>
+            <View style={styles.container}>
+
+                {isMorphUriReady && (
+                    <Iage source={{ uri: morphUri }} style={styles.image} resizeMode="contain" />
+                )}
+
+                <Button
+                    mode="contained"
+                    style={styles.button}
+                    onPress={() => getMorph()}
+                >
+                    MORPH
+                </Button>
+            </View>
         </View>
     )
 }
@@ -84,7 +102,7 @@ export default function ImageViewScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#222',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -92,4 +110,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '70%',
     },
+    button: {
+        color: 'white',
+    }
 });
