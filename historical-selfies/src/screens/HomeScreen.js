@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Button, Text, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import * as FileSystem from 'expo-file-system';
 
 export default function HomeScreen({ navigation }) {
 

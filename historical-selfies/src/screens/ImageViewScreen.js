@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Image, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, Text, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-paper';
 
 export default function ImageViewScreen({ navigation }) {
@@ -23,6 +23,8 @@ export default function ImageViewScreen({ navigation }) {
         }
         try {
             setIsLoading(true);
+
+            console.log('image ' + image);
 
             const data = new FormData();
             data.append("firstImageRef", image);
