@@ -65,7 +65,7 @@ export default function ImageViewScreen({ navigation }) {
     if (isLoading) {
         return (
             <View style={styles.container}>
-                <Text>Morphing Image</Text>
+                <Text style={styles.text}>Morphing Image</Text>
                 <ActivityIndicator size="large" />
             </View>
         )
@@ -75,27 +75,20 @@ export default function ImageViewScreen({ navigation }) {
         <View style={styles.container}>
             <Button
                 mode="contained"
-                style={styles.button}
-                buttonColor={'black'}
                 onPress={() => navigation.navigate('Home')}
             >
                 Home
             </Button>
-            <View style={styles.container}>
-
-                {isMorphUriReady && (
-                    <Iage source={{ uri: morphUri }} style={styles.image} resizeMode="contain" />
-                )}
-
-                <Button
-                    mode="contained"
-                    style={styles.button}
-                    onPress={() => getMorph()}
-                >
-                    MORPH
-                </Button>
-            </View>
-        </View>
+            {isMorphUriReady && (
+                <Image source={{ uri: morphUri }} style={styles.image} resizeMode="contain" />
+            )}
+            <Button
+                mode="contained"
+                onPress={() => getMorph()}
+            >
+                MORPH
+            </Button>
+        </View >
     )
 }
 
@@ -105,12 +98,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#222',
         alignItems: 'center',
         justifyContent: 'center',
+        fontFamiy: 'sans-serif',
     },
     image: {
-        width: '100%',
-        height: '70%',
+        width: 500,
+        height: 500,
     },
-    button: {
+    text: {
         color: 'white',
+        fontSize: 15,
     }
 });
