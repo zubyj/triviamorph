@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Button, Text, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 
 export default function HomeScreen({ navigation }) {
+
+    const MORPH_ENDPOINT = 'https://pyaar.ai/morph/upload'
 
     const uploadIcon = require('../../assets/icons/upload-img.png');
     const invalidIcon = require('../../assets/icons/invalid-img.png');
@@ -56,7 +59,7 @@ export default function HomeScreen({ navigation }) {
         const data = new FormData()
         data.append('firstImageRef', img)
         fetch(
-            'https://pyaar.ai/morph/upload', {
+            MORPH_ENDPOINT, {
             method: 'POST',
             headers: {
                 Authorization: 'ImageMorpherV1',
