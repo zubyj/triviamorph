@@ -84,12 +84,14 @@ export default function ImageViewScreen({ navigation }) {
             {isMorphUriReady && (
                 <Image source={{ uri: morphUri }} style={styles.image} resizeMode="contain" />
             )}
-            <Button
-                mode="contained"
-                onPress={() => getMorph()}
-            >
-                MORPH
-            </Button>
+            {!isMorphUriReady && (
+                <Button
+                    mode="contained"
+                    onPress={() => getMorph()}
+                >
+                    MORPH
+                </Button>
+            )}
         </View >
     )
 }
@@ -103,8 +105,8 @@ const styles = StyleSheet.create({
         fontFamiy: 'sans-serif',
     },
     image: {
-        width: 500,
-        height: 500,
+        width: 300,
+        height: 400,
     },
     text: {
         color: 'white',

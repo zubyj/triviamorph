@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 
@@ -54,7 +54,6 @@ export default function HomeScreen({ navigation }) {
         }
     };
 
-    // validates img
     const uploadImage = async (img) => {
         const data = new FormData()
         data.append('firstImageRef', img)
