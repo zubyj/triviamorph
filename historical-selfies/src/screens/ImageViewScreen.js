@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Image, Text, ActivityIndicator } from 'react-native';
-import { Button } from 'react-native-paper';
+import { StyleSheet, View, Image, Text } from 'react-native';
+import { Button, ActivityIndicator } from 'react-native-paper';
+import Typewriter from 'react-native-typewriter';
 
 const styles = StyleSheet.create({
     container: {
@@ -20,7 +21,12 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#000',
-        padding: 20
+        padding: 20,
+    },
+    loadingText: {
+        fontSize: 15,
+        padding: 20,
+        color: '#fff',
     }
 });
 
@@ -89,7 +95,9 @@ export default function ImageViewScreen({ navigation }) {
     if (isLoading) {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>Morphing Image</Text>
+                <Typewriter style={styles.loadingText} typing={1} minDelay={50} maxDelay={100} repeat={true}>
+                    Creating the game ...
+                </Typewriter>
                 <ActivityIndicator size="large" />
             </View>
         )
@@ -100,6 +108,7 @@ export default function ImageViewScreen({ navigation }) {
             <View style={styles.container}>
                 <Button
                     mode="contained"
+                    icon="home"
                     onPress={() => navigation.navigate('Home')}
                     style={styles.button}
                 >
@@ -118,6 +127,7 @@ export default function ImageViewScreen({ navigation }) {
         <View style={styles.container}>
             <Button
                 mode="outlined"
+                icon="play-box"
                 width={200}
                 style={styles.button}
                 onPress={() => getMorph()}
