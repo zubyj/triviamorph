@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import { Asset } from 'expo-asset';
+
+import TomCruiseImg from '../../assets/images/tom-cruise.jpeg';
+
 
 export default function HomeScreen({ navigation }) {
 
@@ -26,21 +30,32 @@ export default function HomeScreen({ navigation }) {
         if (!asset) {
             throw new Error('No image selected');
         }
-
         if (!result.canceled) {
             if (asset) {
                 const { uri } = asset;
+                console.log('uri' + uri)
+
+                let image1 = null;
+                let image2 = null;
+
                 if (asset.base64) {
-                    uploadImage(asset.base64)
+                    image1 = await uploadImage(asset.base64, true)
                 }
                 else if (asset.uri) {
-                    uploadImage(asset.uri)
+                    image1 = await uploadImage(asset.uri, true)
                 }
+
                 saveImage(uri);
+
+                const tomCruiseAsset = Asset.fromModule(TomCruiseImg);
+                await tomCruiseAsset.downloadAsync();
+                const tomCruiseUri = tomCruiseAsset.localUri;
+                const tomCruiseBase64 = await FileSystem.readAsStringAsync(tomCruiseUri, { encoding: FileSystem.EncodingType.Base64 });
+                image2 = await uploadImage(`data:image/jpeg;base64,${tomCruiseBase64}`, false);
+                navigation.navigate('ImageView', { image1: image1, image2: image2 });
             }
         }
     };
-
     const saveImage = async (uri) => {
         const fileName = uri.split('/').pop();
         const newPath = FileSystem.documentDirectory + fileName;
@@ -54,10 +69,10 @@ export default function HomeScreen({ navigation }) {
         }
     };
 
-    const uploadImage = async (img) => {
+    const uploadImage = async (img, isFirstImg) => {
         const data = new FormData()
         data.append('firstImageRef', img)
-        fetch(
+        return fetch(
             MORPH_ENDPOINT, {
             method: 'POST',
             headers: {
@@ -76,12 +91,18 @@ export default function HomeScreen({ navigation }) {
             })
             .then(resJson => {
                 console.log('Image upload success');
+                console.log('res json ' + resJson);
                 setIsValid(true);
-                navigation.navigate('ImageView', { image: resJson });
-                return resJson.data
+                return resJson;
             })
             .catch((error) => {
                 console.log('Image upload failed')
+                if (isFirstImg) {
+                    console.log('your image failed');
+                }
+                else {
+                    console.log('tom cruise image failed');
+                }
                 console.log(JSON.stringify(error))
                 setIsValid(false);
             })

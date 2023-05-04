@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#000',
-        padding: 20,
+        padding: 15,
     },
     loadingText: {
         fontSize: 15,
@@ -34,7 +34,9 @@ export default function ImageViewScreen({ navigation }) {
 
     const MORPH_ENDPOINT = 'https://pyaar.ai/morph';
 
-    const image = navigation.getParam('image', null); // base 64 or uri of image
+    const image = navigation.getParam('image1', null); // base 64 or uri of image
+    const image2 = navigation.getParam('image2', null)
+
     const [morphUri, setMorphUri] = useState(null);
     const [isMorphUriReady, setIsMorphUriReady] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -46,17 +48,16 @@ export default function ImageViewScreen({ navigation }) {
     }
 
     async function getMorph() {
+
         if (!image) {
             return;
         }
         try {
             setIsLoading(true);
 
-            console.log('image ' + image);
-
             const data = new FormData();
             data.append("firstImageRef", image);
-            data.append("secondImageRef", image);
+            data.append("secondImageRef", image2);
             data.append("isAsync", "True");
             data.append("isSequence", "False");
 
@@ -120,7 +121,6 @@ export default function ImageViewScreen({ navigation }) {
                 <Image source={{ uri: morphUri }} style={styles.image} resizeMode="contain" />
             </View>
         )
-
     }
 
     return (
