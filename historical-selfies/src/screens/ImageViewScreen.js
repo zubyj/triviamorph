@@ -3,56 +3,45 @@ import { StyleSheet, View, Image, Button, Text } from 'react-native';
 
 export default function ImageViewScreen({ navigation }) {
 
-    const imagePath = navigation.getParam('imagePath', null);
+    const MORPH_ENDPOINT = 'https://pyaar.ai/morph';
 
-    const isImageValid = async () => {
+    const image = navigation.getParam('image', null); // base 64 or uri of image
+
+    async function getMorph() {
+        if (!image) {
+            return
+        }
         try {
-            const response = await fetch(imagePath);
-            const blob = await response.blob();
-            const base64Image = await blobToBase64(blob);
-            const uriImage = `data:${blob.type};base64,${base64Image}`;
-
             const data = new FormData();
-            data.append('firstImageRef', uriImage);
+            data.append("firstImageRef", image);
+            data.append("secondImageRef", image);
+            data.append("isAsync", "True");
+            data.append("isSequence", "False");
 
-            const responseJson = await fetch('https://pyaar.ai/morph/upload', {
-                method: 'POST',
+            const response = await fetch(MORPH_ENDPOINT, {
+                method: "POST",
                 headers: {
-                    Authorization: 'ImageMorpherV1',
+                    Authorization: "ImageMorpherV1",
                 },
                 body: data,
             });
 
-            if (!responseJson.ok) {
-                throw responseJson;
+            if (response.ok) {
+                const resJson = await response.json();
+                console.log('resJson : ' + resJson.morphUri);
+                return;
+            } else {
+                console.log('response' + response);
+                throw new Error(response);
             }
-
-            console.log('Image upload was successful');
-            return responseJson.data;
         } catch (error) {
-            console.log('Image upload failed');
-            console.log(JSON.stringify(error));
+            console.error(error);
         }
-    };
-
-    const blobToBase64 = (blob) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onerror = reject;
-            reader.onload = () => {
-                resolve(reader.result.split(',')[1]);
-            };
-            reader.readAsDataURL(blob);
-        });
-    };
-
+    }
 
     return (
         <View style={styles.container}>
-            {imagePath && (
-                <Image source={{ uri: imagePath }} style={styles.image} resizeMode="contain" />
-            )}
-            <Button title="Is Image Valid?" onPress={() => isImageValid()} />
+            <Button title="Morph" onPress={() => getMorph()} />
             <Button title="Home" onPress={() => navigation.navigate('Home')} />
         </View>
     );

@@ -5,7 +5,10 @@ import * as FileSystem from 'expo-file-system';
 
 export default function HomeScreen({ navigation }) {
 
-    const IMG_UPLOAD_BTN = require('../../assets/happy-face-256.png');
+    const uploadIcon = require('../../assets/icons/upload-img.png');
+    const invalidIcon = require('../../assets/icons/invalid-img.png');
+
+    const [isValid, setIsValid] = useState(true);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -25,6 +28,12 @@ export default function HomeScreen({ navigation }) {
         if (!result.canceled) {
             if (asset) {
                 const { uri } = asset;
+                if (asset.base64) {
+                    uploadImage(asset.base64)
+                }
+                else if (asset.uri) {
+                    uploadImage(asset.uri)
+                }
                 saveImage(uri);
             }
         }
@@ -33,24 +42,56 @@ export default function HomeScreen({ navigation }) {
     const saveImage = async (uri) => {
         const fileName = uri.split('/').pop();
         const newPath = FileSystem.documentDirectory + fileName;
-
         try {
             await FileSystem.moveAsync({
                 from: uri,
                 to: newPath,
             });
-            navigation.navigate('ImageView', { imagePath: newPath });
         } catch (error) {
             console.log(error);
         }
     };
+
+    // validates img
+    const uploadImage = async (img) => {
+        const data = new FormData()
+        data.append('firstImageRef', img)
+        fetch(
+            'https://pyaar.ai/morph/upload', {
+            method: 'POST',
+            headers: {
+                Authorization: 'ImageMorpherV1',
+            },
+            body: data
+        }
+        )
+            .then(res => {
+                if (!res.ok) {
+                    setIsValid(false);
+                    throw res
+                }
+
+                return res.json();
+            })
+            .then(resJson => {
+                console.log('Image upload success');
+                setIsValid(true);
+                navigation.navigate('ImageView', { image: resJson });
+                return resJson.data
+            })
+            .catch((error) => {
+                console.log('Image upload failed')
+                console.log(JSON.stringify(error))
+                setIsValid(false);
+            })
+    }
 
     return (
         <View style={styles.container}>
             <TouchableOpacity
                 onPress={pickImage}
             >
-                <Image source={IMG_UPLOAD_BTN} />
+                <Image source={isValid ? uploadIcon : invalidIcon} />
             </TouchableOpacity>
         </View>
     );
