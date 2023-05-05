@@ -48,7 +48,6 @@ export default function ImageViewScreen({ navigation }) {
     }
 
     async function getMorph() {
-
         if (!image) {
             return;
         }
