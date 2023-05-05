@@ -12,7 +12,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { Asset } from 'expo-asset';
 
-import TomCruiseImg from '../../assets/images/tom-cruise.jpeg';
+import TomCruiseImg from '../../assets/images/faces/tom-cruise.jpeg';
 
 export default function HomeScreen({ navigation }) {
 
@@ -22,8 +22,9 @@ export default function HomeScreen({ navigation }) {
     const invalidIcon = require('../../assets/icons/invalid-img.png');
 
     const [isValid, setIsValid] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const pickImage = async () => {
+    const selectImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -37,32 +38,34 @@ export default function HomeScreen({ navigation }) {
         if (!asset) {
             throw new Error('No image selected');
         }
-        if (!result.canceled) {
-            if (asset) {
-                const { uri } = asset;
-                console.log('uri' + uri)
 
-                let userImage = null;
-                let image2 = null;
-
-                if (asset.base64) {
-                    userImage = await uploadImage(asset.base64, true)
-                }
-                else if (asset.uri) {
-                    userImage = await uploadImage(asset.uri, true)
-                }
-
-                saveImage(uri);
-
-                const tomCruiseAsset = Asset.fromModule(TomCruiseImg);
-                await tomCruiseAsset.downloadAsync();
-                const tomCruiseUri = tomCruiseAsset.localUri;
-                const tomCruiseBase64 = await FileSystem.readAsStringAsync(tomCruiseUri, { encoding: FileSystem.EncodingType.Base64 });
-                image2 = await uploadImage(`data:image/jpeg;base64,${tomCruiseBase64}`, false);
-                navigation.navigate('ImageView', { image1: userImage, image2: image2 });
-            }
-        }
+        return asset;
     };
+
+    const uploadSelectedImage = async (selectedImage) => {
+        const { uri } = selectedImage;
+
+        let userImage = null;
+
+        if (selectedImage.base64) {
+            userImage = await uploadImage(selectedImage.base64, true);
+        } else if (selectedImage.uri) {
+            userImage = await uploadImage(selectedImage.uri, true);
+        }
+
+        saveImage(uri);
+
+        return userImage;
+    };
+
+    const uploadTomCruiseImage = async () => {
+        const tomCruiseAsset = Asset.fromModule(TomCruiseImg);
+        await tomCruiseAsset.downloadAsync();
+        const tomCruiseUri = tomCruiseAsset.localUri;
+        const tomCruiseBase64 = await FileSystem.readAsStringAsync(tomCruiseUri, { encoding: FileSystem.EncodingType.Base64 });
+        return await uploadImage(`data:image/jpeg;base64,${tomCruiseBase64}`, false);
+    };
+
     const saveImage = async (uri) => {
         const fileName = uri.split('/').pop();
         const newPath = FileSystem.documentDirectory + fileName;
@@ -77,43 +80,55 @@ export default function HomeScreen({ navigation }) {
     };
 
     const uploadImage = async (img, isFirstImg) => {
-        const data = new FormData()
-        data.append('firstImageRef', img)
-        return fetch(
-            MORPH_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                Authorization: 'ImageMorpherV1',
-            },
-            body: data
-        }
-        )
-            .then(res => {
-                if (!res.ok) {
-                    setIsValid(false);
-                    throw res
-                }
+        try {
+            const data = new FormData();
+            data.append('firstImageRef', img);
 
-                return res.json();
-            })
-            .then(resJson => {
-                console.log('Image upload success');
-                console.log('res json ' + resJson);
-                setIsValid(true);
-                return resJson;
-            })
-            .catch((error) => {
-                console.log('Image upload failed')
-                if (isFirstImg) {
-                    console.log('your image failed');
-                }
-                else {
-                    console.log('tom cruise image failed');
-                }
-                console.log(JSON.stringify(error))
+            const response = await fetch(MORPH_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    Authorization: 'ImageMorpherV1',
+                },
+                body: data,
+            });
+
+            if (!response.ok) {
                 setIsValid(false);
-            })
-    }
+                throw response;
+            }
+
+            const resJson = await response.json();
+            console.log('Image upload success');
+            console.log('res json ' + resJson);
+            setIsValid(true);
+            return resJson;
+        } catch (error) {
+            console.log('Image upload failed');
+            if (isFirstImg) {
+                console.log('Your image failed');
+            } else {
+                console.log('Tom Cruise image failed');
+            }
+            console.log(JSON.stringify(error));
+            setIsValid(false);
+        }
+    };
+
+
+    const pickImage = async () => {
+        setIsLoading(true);
+        const selectedImage = await selectImage();
+
+        if (selectedImage) {
+            const uploadedUserImage = await uploadSelectedImage(selectedImage);
+            const uploadedTomCruiseImage = await uploadTomCruiseImage();
+
+            if (uploadedUserImage && uploadedTomCruiseImage) {
+                navigation.navigate('ImageView', { image1: uploadedUserImage, image2: uploadedTomCruiseImage });
+            }
+        }
+        setIsLoading(false);
+    };
 
     return (
         <View style={styles.container}>
