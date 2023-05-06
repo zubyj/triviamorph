@@ -22,9 +22,6 @@ export default function HomeScreen({ navigation }) {
     const invalidIcon = require('../../assets/icons/invalid-img.png');
 
     const [isValid, setIsValid] = useState(true);
-    const [isLoading, setIsLoading] = useState(true);
-
-
 
     const selectImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -138,7 +135,6 @@ export default function HomeScreen({ navigation }) {
 
 
     const pickImage = async () => {
-        setIsLoading(true);
         const selectedImage = await selectImage();
 
         if (selectedImage) {
@@ -149,7 +145,6 @@ export default function HomeScreen({ navigation }) {
                 navigation.navigate('ImageView', { image1: uploadedUserImage, image2: uploadedRandomImage });
             }
         }
-        setIsLoading(false);
     };
 
     return (
