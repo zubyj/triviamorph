@@ -2,7 +2,7 @@
     {
         "name": "Tom Cruise",
         "value": "tom-cruise",
-        "img_path": "./images/faces/tom-cruise.jpeg",
+        "img_path": "../../assets/images/faces/tom-cruise.jpeg",
         "related": [
             "nikola-tesla",
             "abraham-lincoln",
@@ -12,7 +12,7 @@
     {
         "name": "Nikola Tesla",
         "value": "nikola-tesla",
-        "img_path": "./images/faces/nikola-tesla.webp",
+        "img_path": "../../assets/images/faces/nikola-tesla.webp",
         "related": [
             "tom-cruise",
             "tobey-maguire",
@@ -22,7 +22,7 @@
     {
         "name": "Abraham Lincoln",
         "value": "abraham-lincoln",
-        "img_path": "./images/faces/abraham-lincoln.jpeg",
+        "img_path": "../../assets/images/faces/abraham-lincoln.jpeg",
         "related": [
             "tom-cruise",
             "nikola-tesla",
@@ -32,7 +32,7 @@
     {
         "name": "Tobey Maguire",
         "value": "tobey-maguire",
-        "img_path": "./images/faces/tobey-maguire.jpeg",
+        "img_path": "../../assets/images/faces/tobey-maguire.jpeg",
         "related": [
             "tom-cruise",
             "nikola-tesla",

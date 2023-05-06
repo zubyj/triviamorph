@@ -12,7 +12,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { Asset } from 'expo-asset';
 
-import TomCruiseImg from '../../assets/images/faces/tom-cruise.jpeg';
+import faces from '../../assets/faces.json';
 
 export default function HomeScreen({ navigation }) {
 
@@ -23,6 +23,8 @@ export default function HomeScreen({ navigation }) {
 
     const [isValid, setIsValid] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
+
+
 
     const selectImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -58,12 +60,32 @@ export default function HomeScreen({ navigation }) {
         return userImage;
     };
 
-    const uploadTomCruiseImage = async () => {
-        const tomCruiseAsset = Asset.fromModule(TomCruiseImg);
-        await tomCruiseAsset.downloadAsync();
-        const tomCruiseUri = tomCruiseAsset.localUri;
-        const tomCruiseBase64 = await FileSystem.readAsStringAsync(tomCruiseUri, { encoding: FileSystem.EncodingType.Base64 });
-        return await uploadImage(`data:image/jpeg;base64,${tomCruiseBase64}`, false);
+    const getRandomFace = () => {
+        const randomIndex = Math.floor(Math.random() * faces.length);
+        return faces[randomIndex];
+    }
+
+    const getRandomImagePath = async (imageName) => {
+        const asset = await Asset.fromURI(imageName);
+        await asset.downloadAsync(); // Download the asset if it's not already cached
+        return asset.localUri;
+    };
+
+    const uploadRandomImage = async () => {
+        // let randomFace = getRandomFace();
+        // let randomFacePath = randomFace.img_path;
+        let randomFacePath = '../../assets/images/faces/tom-cruise.jpeg';
+        const asset = Asset.fromModule(require(randomFacePath));
+        await asset.downloadAsync(); // Download the asset if it's not already cached
+
+        // Convert the image to base64
+        const base64Img = await FileSystem.readAsStringAsync(asset.localUri, {
+            encoding: FileSystem.EncodingType.Base64,
+        });
+
+
+        // Upload the base64 image
+        return await uploadImage(`data:image/jpeg;base64,${base64Img}`, false);
     };
 
     const saveImage = async (uri) => {
@@ -107,7 +129,7 @@ export default function HomeScreen({ navigation }) {
             if (isFirstImg) {
                 console.log('Your image failed');
             } else {
-                console.log('Tom Cruise image failed');
+                console.log('Server image failed');
             }
             console.log(JSON.stringify(error));
             setIsValid(false);
@@ -121,10 +143,10 @@ export default function HomeScreen({ navigation }) {
 
         if (selectedImage) {
             const uploadedUserImage = await uploadSelectedImage(selectedImage);
-            const uploadedTomCruiseImage = await uploadTomCruiseImage();
+            const uploadedRandomImage = await uploadRandomImage();
 
-            if (uploadedUserImage && uploadedTomCruiseImage) {
-                navigation.navigate('ImageView', { image1: uploadedUserImage, image2: uploadedTomCruiseImage });
+            if (uploadedUserImage && uploadedRandomImage) {
+                navigation.navigate('ImageView', { image1: uploadedUserImage, image2: uploadedRandomImage });
             }
         }
         setIsLoading(false);
