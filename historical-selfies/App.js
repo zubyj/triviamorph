@@ -3,11 +3,11 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import HomeScreen from './src/screens/HomeScreen';
+import ImageUploadScreen from './src/screens/ImageUploadScreen';
 import ImageViewScreen from './src/screens/ImageViewScreen';
 
 const MainNavigator = createStackNavigator({
-  Home: { screen: HomeScreen },
+  ImageUpload: { screen: ImageUploadScreen },
   ImageView: { screen: ImageViewScreen },
 });
 

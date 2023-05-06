@@ -6,7 +6,7 @@ const HomeButton = ({ navigation }) => {
         <Button
             mode="contained"
             icon="home"
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('ImageUpload')}
             style={styles.button}
         >
             <Text style={styles.text}>Home</Text>

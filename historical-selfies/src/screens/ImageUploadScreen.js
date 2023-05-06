@@ -21,7 +21,7 @@ const faceImages = {
     tobeyMaguire: require('../../assets/images/faces/tobey-maguire.jpeg'),
 };
 
-export default function HomeScreen({ navigation }) {
+export default function ImageUploadScreen({ navigation }) {
 
     const MORPH_ENDPOINT = 'https://pyaar.ai/morph/upload'
 
@@ -85,8 +85,6 @@ export default function HomeScreen({ navigation }) {
         // Upload the base64 image
         return await uploadImage(`data:image/jpeg;base64,${base64Img}`, false);
     };
-
-
 
     const saveImage = async (uri) => {
         const fileName = uri.split('/').pop();
