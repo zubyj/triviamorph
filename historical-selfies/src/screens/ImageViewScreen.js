@@ -3,32 +3,9 @@ import { StyleSheet, View, Image, Text } from 'react-native';
 import { Button, ActivityIndicator } from 'react-native-paper';
 import Typewriter from 'react-native-typewriter';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#222',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamiy: 'sans-serif',
-    },
-    image: {
-        width: 300,
-        height: 400,
-    },
-    text: {
-        color: '#fff',
-        fontSize: 15,
-    },
-    button: {
-        backgroundColor: '#000',
-        padding: 15,
-    },
-    loadingText: {
-        fontSize: 15,
-        padding: 20,
-        color: '#fff',
-    }
-});
+import faces from '../../assets/faces.json'
+
+
 
 export default function ImageViewScreen({ navigation }) {
 
@@ -40,6 +17,16 @@ export default function ImageViewScreen({ navigation }) {
     const [morphUri, setMorphUri] = useState(null);
     const [isMorphUriReady, setIsMorphUriReady] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [isCorrect, setIsCorrect] = useState(null);
+
+    const randomFace = navigation.getParam('randomFace', null);
+
+    const handleAnswer = (answer) => {
+        setSelectedAnswer(answer);
+        setIsCorrect(answer === randomFace.value);
+    };
 
     async function checkImageAvailability(uri) {
         return Image.prefetch(uri)
@@ -106,19 +93,27 @@ export default function ImageViewScreen({ navigation }) {
     if (isMorphUriReady) {
         return (
             <View style={styles.container}>
-                <Button
-                    mode="contained"
-                    icon="home"
-                    onPress={() => navigation.navigate('Home')}
-                    style={styles.button}
-                >
-                    <Text style={styles.text}
-                    >
-                        Home
-                    </Text>
-                </Button>
+
                 <Image source={{ uri: morphUri }} style={styles.image} resizeMode="contain" />
+                {selectedAnswer && (
+                    <Text style={styles.resultText}>{isCorrect ? "Correct!" : "Wrong!"}</Text>
+                )}
+                <Text style={styles.loadingText}>Who are you morphed with?</Text>
+                <View style={styles.buttonsContainer}>
+                    {[randomFace.value, ...randomFace.related].map((answer, index) => (
+                        <Button
+                            key={index}
+                            mode="outlined"
+                            onPress={() => handleAnswer(answer)}
+                            style={[styles.quizButton, selectedAnswer === answer ? styles.selectedButton : null]}
+                        >
+                            <Text style={styles.text}>{faces.find((face) => face.value === answer).name}</Text>
+                        </Button>
+                    ))}
+                </View>
+
             </View>
+
         )
     }
 
@@ -138,3 +133,46 @@ export default function ImageViewScreen({ navigation }) {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#222',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamiy: 'sans-serif',
+    },
+    image: {
+        width: 300,
+        height: 400,
+    },
+    text: {
+        color: '#fff',
+        fontSize: 15,
+    },
+    button: {
+        backgroundColor: '#000',
+        padding: 15,
+    },
+    quizButton: {
+        width: '45%',
+        padding: 10,
+    },
+    loadingText: {
+        fontSize: 15,
+        padding: 20,
+        color: '#fff',
+    },
+    buttonsContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+    },
+    selectedButton: {
+        backgroundColor: '#999',
+    },
+    resultText: {
+        color: '#fff',
+        fontSize: 20,
+    },
+});

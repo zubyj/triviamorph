@@ -29,6 +29,7 @@ export default function HomeScreen({ navigation }) {
     const invalidIcon = require('../../assets/icons/invalid-img.png');
 
     const [isValid, setIsValid] = useState(true);
+    const [randomFace, setRandomFace] = useState(null);
 
     const selectImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -66,11 +67,12 @@ export default function HomeScreen({ navigation }) {
 
     const getRandomFace = () => {
         const randomIndex = Math.floor(Math.random() * faces.length);
-        return faces[randomIndex].img_require;
-    }
+        console.log('random face object ' + faces[randomIndex]);
+        return faces[randomIndex];
+    };
 
-    const uploadRandomImage = async () => {
-        let randomFaceKey = getRandomFace();
+    const uploadRandomImage = async (randomFace) => {
+        let randomFaceKey = randomFace.img_require;
 
         let randomFaceAsset = Asset.fromModule(faceImages[randomFaceKey]);
         await randomFaceAsset.downloadAsync(); // Download the asset if it's not already cached
@@ -83,6 +85,7 @@ export default function HomeScreen({ navigation }) {
         // Upload the base64 image
         return await uploadImage(`data:image/jpeg;base64,${base64Img}`, false);
     };
+
 
 
     const saveImage = async (uri) => {
@@ -132,16 +135,16 @@ export default function HomeScreen({ navigation }) {
         }
     };
 
-
     const pickImage = async () => {
         const selectedImage = await selectImage();
 
         if (selectedImage) {
             const uploadedUserImage = await uploadSelectedImage(selectedImage);
-            const uploadedRandomImage = await uploadRandomImage();
+            const randomFace = getRandomFace();
+            const uploadedRandomImage = await uploadRandomImage(randomFace);
 
             if (uploadedUserImage && uploadedRandomImage) {
-                navigation.navigate('ImageView', { image1: uploadedUserImage, image2: uploadedRandomImage });
+                navigation.navigate('ImageView', { image1: uploadedUserImage, image2: uploadedRandomImage, randomFace: randomFace });
             }
         }
     };
