@@ -14,6 +14,13 @@ import { Asset } from 'expo-asset';
 
 import faces from '../../assets/faces.json';
 
+const faceImages = {
+    tomCruise: require('../../assets/images/faces/tom-cruise.jpeg'),
+    nikolaTesla: require('../../assets/images/faces/nikola-tesla.webp'),
+    abrahamLincoln: require('../../assets/images/faces/abraham-lincoln.jpeg'),
+    tobeyMaguire: require('../../assets/images/faces/tobey-maguire.jpeg'),
+};
+
 export default function HomeScreen({ navigation }) {
 
     const MORPH_ENDPOINT = 'https://pyaar.ai/morph/upload'
@@ -59,31 +66,24 @@ export default function HomeScreen({ navigation }) {
 
     const getRandomFace = () => {
         const randomIndex = Math.floor(Math.random() * faces.length);
-        return faces[randomIndex];
+        return faces[randomIndex].img_require;
     }
 
-    const getRandomImagePath = async (imageName) => {
-        const asset = await Asset.fromURI(imageName);
-        await asset.downloadAsync(); // Download the asset if it's not already cached
-        return asset.localUri;
-    };
-
     const uploadRandomImage = async () => {
-        // let randomFace = getRandomFace();
-        // let randomFacePath = randomFace.img_path;
-        let randomFacePath = '../../assets/images/faces/tom-cruise.jpeg';
-        const asset = Asset.fromModule(require(randomFacePath));
-        await asset.downloadAsync(); // Download the asset if it's not already cached
+        let randomFaceKey = getRandomFace();
+
+        let randomFaceAsset = Asset.fromModule(faceImages[randomFaceKey]);
+        await randomFaceAsset.downloadAsync(); // Download the asset if it's not already cached
 
         // Convert the image to base64
-        const base64Img = await FileSystem.readAsStringAsync(asset.localUri, {
+        const base64Img = await FileSystem.readAsStringAsync(randomFaceAsset.localUri, {
             encoding: FileSystem.EncodingType.Base64,
         });
-
 
         // Upload the base64 image
         return await uploadImage(`data:image/jpeg;base64,${base64Img}`, false);
     };
+
 
     const saveImage = async (uri) => {
         const fileName = uri.split('/').pop();
@@ -118,7 +118,6 @@ export default function HomeScreen({ navigation }) {
 
             const resJson = await response.json();
             console.log('Image upload success');
-            console.log('res json ' + resJson);
             setIsValid(true);
             return resJson;
         } catch (error) {
