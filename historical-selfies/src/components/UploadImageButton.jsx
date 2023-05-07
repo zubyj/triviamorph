@@ -7,6 +7,7 @@ const UploadImageButton = ({ setImageUrl }) => {
 
     const uploadIcon = require('../../assets/icons/upload-img.png');
     const invalidIcon = require('../../assets/icons/invalid-img.png');
+
     const MORPH_ENDPOINT = 'https://pyaar.ai/morph/upload';
 
     const [isValid, setIsValid] = useState(true);
