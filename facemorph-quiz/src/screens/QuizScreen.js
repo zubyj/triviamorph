@@ -1,18 +1,15 @@
 // native imports 
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
-
 // external imports
 import { Button } from 'react-native-paper';
-
 // local imports
 import UploadImageButton from '../components/UploadImageButton';
+import QuizOptions from '../components/QuizOptions';
 import LoadingScreen from './LoadingScreen';
 import { getRandomImage } from '../UploadRandomImage';
-
 // asset imports
 import people from '../../assets/people.json';
-import playIcon from '../../assets/icons/play.png';
 
 export default function QuizScreen() {
 
@@ -27,7 +24,6 @@ export default function QuizScreen() {
 
     const [questionCount, setQuestionCount] = useState(0);
     const [score, setScore] = useState(0);
-
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
@@ -47,7 +43,7 @@ export default function QuizScreen() {
         let num = 3
         const related = randomImage.related;
         const shuffledRelated = related.sort(() => Math.random() - 0.5);
-        const otherOptions = shuffledRelated.slice(0, num).map((value) => people.find((person) => person.value === value).ame);
+        const otherOptions = shuffledRelated.slice(0, num).map((value) => people.find((person) => person.value === value).name);
         const allOptions = [...otherOptions, randomImage.value];
         const shuffledOptions = allOptions.sort(() => Math.random() - 0.5);
         return shuffledOptions;
@@ -124,8 +120,6 @@ export default function QuizScreen() {
             </View>
         )
     }
-
-    // Add a result screen when all questions are answered
     if (questionCount >= 4) {
         return (
             <View style={styles.container}>
@@ -133,49 +127,30 @@ export default function QuizScreen() {
             </View>
         )
     }
-
     if (morphUri) {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>Question {questionCount + 1} / 5</Text>
-                <Text style={styles.text}>Score: {score}</Text>
+                <Text style={styles.headerText}>Question {questionCount + 1} / 5</Text>
+                <Text style={styles.headerText}>Score: {score}</Text>
                 <Image style={styles.image} source={{ uri: morphUri }} />
-                <Text style={styles.text}>Who are you morphed with?</Text>
-                <View style={styles.buttonsContainer}>
-                    {options.map((option, index) => (
-                        <Button
-                            key={index}
-                            mode="outlined"
-                            textColor='#fff'
-                            style={[styles.quizButton, isCorrect && option === randomImage.value ? styles.selectedButton : null]}
-                            onPress={() => handleButtonClick(option)}
-                            disabled={isCorrect}
-                        >
-                            {option}
-                        </Button>
-                    ))}
-                </View>
+                <Text style={styles.headerText}>Who are you morphed with?</Text>
+                <QuizOptions options={options} handleButtonClick={handleButtonClick} isCorrect={isCorrect} randomImageValue={randomImage.value} />
             </View >
         )
     }
 
-    if (imageUrl) {
+    if (!imageUrl) {
         return (
             <View style={styles.container}>
-                <Button
-                    onPress={() => getMorph()}
-                >
-                    <Image source={playIcon} />
-                </Button>
+                <UploadImageButton
+                    setImageUrl={setImageUrl}
+                />
             </View>
         )
     }
 
     return (
         <View style={styles.container}>
-            <UploadImageButton
-                setImageUrl={setImageUrl}
-            />
         </View>
     )
 }
@@ -187,8 +162,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         fontFamiy: 'sans-serif',
-        fontSize: 20,
-        marginTop: 15,
     },
     image: {
         width: 400,
@@ -196,25 +169,17 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#fff',
+        fontSize: 20,
+    },
+    headerText: {
+        marginTop: 15,
+        fontSize: 20,
+        color: '#fff',
+        marginBottom: 30,
     },
     button: {
         backgroundColor: '#000',
         padding: 15,
         color: '#fff',
-    },
-    quizButton: {
-        width: '45%',
-        margin: 5,
-        borderRadius: 5,
-        color: '#fff',
-    },
-    buttonsContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        marginTop: 15,
-    },
-    selectedButton: {
-        backgroundColor: '#999',
     },
 });
