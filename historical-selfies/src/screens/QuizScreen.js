@@ -20,6 +20,7 @@ export default function QuizScreen({ navigation }) {
     const [randomImage, setRandomImage] = useState('');
     const [isCorrect, setIsCorrect] = useState(false);
     const [options, setOptions] = useState([]);
+    const [score, setScore] = useState(0);
 
     const [questionCount, setQuestionCount] = useState(0);
 
@@ -48,15 +49,17 @@ export default function QuizScreen({ navigation }) {
 
     const handleButtonClick = (selectedOption) => {
         if (selectedOption === randomImage.value) {
+            setScore(score + 1);
             setIsCorrect(true);
-            if (questionCount < 4) {
-                setTimeout(() => {
-                    setQuestionCount(questionCount + 1);
-                    setIsCorrect(false);
-                    setMorphUri(''); // Reset morphUri to move to the next question
-                    getMorph(); // Start the morphing process for the next question
-                }, 2000); // Set a delay to show the correct answer
-            }
+        }
+
+        if (questionCount < 4) {
+            setTimeout(() => {
+                setQuestionCount(questionCount + 1);
+                setIsCorrect(false);
+                setMorphUri(''); // Reset morphUri to move to the next question
+                getMorph(); // Start the morphing process for the next question
+            }, 2000); // Set a delay before moving to the next question
         }
     };
 
@@ -138,6 +141,7 @@ export default function QuizScreen({ navigation }) {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>Question {questionCount + 1} / 5</Text>
+                <Text style={styles.text}>Score: {score}</Text>
                 <Image style={styles.image} source={{ uri: morphUri }} />
                 <Text style={styles.text}>Who are you morphed with?</Text>
                 <View style={styles.buttonsContainer}>
