@@ -1,31 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
 import { Button, ActivityIndicator } from 'react-native-paper';
 import Typewriter from 'react-native-typewriter';
 
-import faces from '../../assets/faces.json'
+import { getRandomImage } from '../UploadRandomImage';
+import UploadImageButton from '../components/UploadImageButton';
 
+import playIcon from '../../assets/icons/play.png';
+import people from '../../assets/people.json';
 
-
-export default function ImageViewScreen({ navigation }) {
+export default function QuizScreen({ navigation }) {
 
     const MORPH_ENDPOINT = 'https://pyaar.ai/morph';
 
-    const image = navigation.getParam('image1', null); // base 64 or uri of image
-    const image2 = navigation.getParam('image2', null)
-
-    const [morphUri, setMorphUri] = useState(null);
-    const [isMorphUriReady, setIsMorphUriReady] = useState(false);
+    const [imageUrl, setImageUrl] = useState('');
+    const [morphUri, setMorphUri] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    const [selectedAnswer, setSelectedAnswer] = useState(null);
-    const [isCorrect, setIsCorrect] = useState(null);
+    const [randomImage, setRandomImage] = useState('');
+    const [isCorrect, setIsCorrect] = useState(false);
+    const [options, setOptions] = useState([]);
 
-    const randomFace = navigation.getParam('randomFace', null);
+    useEffect(() => {
+        if (morphUri && randomImage) {
+            const optionsArray = generateOptions();
+            setOptions(optionsArray);
+        }
+    }, [morphUri, randomImage]);
 
-    const handleAnswer = (answer) => {
-        setSelectedAnswer(answer);
-        setIsCorrect(answer === randomFace.value);
+    const generateOptions = () => {
+        let num = 3
+        const related = randomImage.related;
+        const shuffledRelated = related.sort(() => Math.random() - 0.5);
+        const otherOptions = shuffledRelated.slice(0, num).map((value) => people.find((person) => person.value === value).name);
+        const allOptions = [...otherOptions, randomImage.value];
+        const shuffledOptions = allOptions.sort(() => Math.random() - 0.5);
+        return shuffledOptions;
+    };
+
+    const handleButtonClick = (selectedOption) => {
+        if (selectedOption === randomImage.value) {
+            setIsCorrect(true);
+        }
     };
 
     async function checkImageAvailability(uri) {
@@ -35,15 +51,15 @@ export default function ImageViewScreen({ navigation }) {
     }
 
     async function getMorph() {
-        if (!image) {
-            return;
-        }
+        const { randomImageUrl, randomImageData } = await getRandomImage();
+        setRandomImage(randomImageData);
+
         try {
             setIsLoading(true);
 
             const data = new FormData();
-            data.append("firstImageRef", image);
-            data.append("secondImageRef", image2);
+            data.append("firstImageRef", imageUrl);
+            data.append("secondImageRef", randomImageUrl);
             data.append("isAsync", "True");
             data.append("isSequence", "False");
 
@@ -58,18 +74,15 @@ export default function ImageViewScreen({ navigation }) {
             if (response.ok) {
                 const resJson = await response.json();
                 const uri = resJson.morphUri;
-                console.log('uri : ' + uri);
 
                 while (!(await checkImageAvailability(uri))) {
                     await new Promise((resolve) => setTimeout(resolve, 1000));
                 }
 
                 setMorphUri(uri);
-                setIsMorphUriReady(true);
                 setIsLoading(false);
                 return;
             } else {
-                console.log('response' + response);
                 setIsLoading(false);
                 throw new Error(response);
             }
@@ -82,54 +95,52 @@ export default function ImageViewScreen({ navigation }) {
     if (isLoading) {
         return (
             <View style={styles.container}>
-                <Typewriter style={styles.loadingText} typing={1} minDelay={50} maxDelay={100} repeat={true}>
-                    Creating the game ...
-                </Typewriter>
-                <ActivityIndicator size="large" />
+                <ActivityIndicator size="large" color="#fff" />
+                <Text style={styles.loadingText}>Morphing...</Text>
             </View>
         )
     }
 
-    if (isMorphUriReady) {
+    if (morphUri) {
         return (
             <View style={styles.container}>
-
-                <Image source={{ uri: morphUri }} style={styles.image} resizeMode="contain" />
-                {selectedAnswer && (
-                    <Text style={styles.resultText}>{isCorrect ? "Correct!" : "Wrong!"}</Text>
-                )}
-                <Text style={styles.loadingText}>Who are you morphed with?</Text>
+                <Image style={styles.image} source={{ uri: morphUri }} />
+                <Text style={styles.text}>Who are you morphed with?</Text>
                 <View style={styles.buttonsContainer}>
-                    {[randomFace.value, ...randomFace.related].map((answer, index) => (
+                    {options.map((option, index) => (
                         <Button
                             key={index}
                             mode="outlined"
-                            onPress={() => handleAnswer(answer)}
-                            style={[styles.quizButton, selectedAnswer === answer ? styles.selectedButton : null]}
+                            textColor='#fff'
+                            style={[styles.quizButton, isCorrect && option === randomImage.value ? styles.selectedButton : null]}
+                            onPress={() => handleButtonClick(option)}
+                            disabled={isCorrect}
                         >
-                            <Text style={styles.text}>{faces.find((face) => face.value === answer).name}</Text>
+                            {option}
                         </Button>
                     ))}
                 </View>
+            </View >
+        )
+    }
 
+    if (imageUrl) {
+        return (
+            <View style={styles.container}>
+                <Button
+                    onPress={() => getMorph()}
+                >
+                    <Image source={playIcon} />
+                </Button>
             </View>
-
         )
     }
 
     return (
         <View style={styles.container}>
-            <Button
-                mode="outlined"
-                icon="play-box"
-                width={200}
-                style={styles.button}
-                onPress={() => getMorph()}
-            >
-                <Text style={styles.text}>
-                    MORPH
-                </Text>
-            </Button>
+            <UploadImageButton
+                setImageUrl={setImageUrl}
+            />
         </View>
     )
 }
@@ -148,7 +159,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#fff',
-        fontSize: 15,
+        fontSize: 20,
+        marginTop: 15,
     },
     button: {
         backgroundColor: '#000',
@@ -156,7 +168,8 @@ const styles = StyleSheet.create({
     },
     quizButton: {
         width: '45%',
-        padding: 10,
+        margin: 5,
+        borderRadius: 5,
     },
     loadingText: {
         fontSize: 15,
@@ -167,6 +180,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        marginTop: 15,
     },
     selectedButton: {
         backgroundColor: '#999',

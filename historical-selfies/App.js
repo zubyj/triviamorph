@@ -3,12 +3,10 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import ImageUploadScreen from './src/screens/ImageUploadScreen';
-import ImageViewScreen from './src/screens/ImageViewScreen';
+import QuizScreen from './src/screens/QuizScreen';
 
 const MainNavigator = createStackNavigator({
-  ImageUpload: { screen: ImageUploadScreen },
-  ImageView: { screen: ImageViewScreen },
+  Quiz: { screen: QuizScreen },
 });
 
 const AppContainer = createAppContainer(MainNavigator);
