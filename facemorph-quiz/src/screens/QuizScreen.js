@@ -1,12 +1,11 @@
 // native imports 
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
-// external imports
-import { Button } from 'react-native-paper';
 // local imports
 import UploadImageButton from '../components/UploadImageButton';
 import QuizOptions from '../components/QuizOptions';
 import LoadingScreen from './LoadingScreen';
+import ResultsScreen from './ResultsScreen';
 import { getRandomImage } from '../UploadRandomImage';
 // asset imports
 import people from '../../assets/people.json';
@@ -14,6 +13,7 @@ import people from '../../assets/people.json';
 export default function QuizScreen() {
 
     const MORPH_ENDPOINT = 'https://pyaar.ai/morph';
+    const NUM_QUESTIONS = 1;
 
     const [imageUrl, setImageUrl] = useState('');
     const [morphUri, setMorphUri] = useState('');
@@ -55,7 +55,7 @@ export default function QuizScreen() {
             setIsCorrect(true);
         }
 
-        if (questionCount < 4) {
+        if (questionCount < NUM_QUESTIONS) {
             setTimeout(() => {
                 setQuestionCount(questionCount + 1);
                 setIsCorrect(false);
@@ -115,54 +115,36 @@ export default function QuizScreen() {
 
     if (isLoading) {
         return (
-            <View style={styles.container}>
-                <LoadingScreen text={`Creating Question ${questionCount + 1} ...`} />
-            </View>
+            <LoadingScreen text={`Creating Question ${questionCount + 1} ...`} />
         )
     }
-    if (questionCount >= 4) {
+    if (questionCount >= NUM_QUESTIONS) {
         return (
-            <View style={styles.container}>
-                <ResultsScreen />
-            </View>
+            <ResultsScreen score={score} />
         )
     }
     if (morphUri) {
         return (
-            <View style={styles.container}>
+            <>
                 <Text style={styles.headerText}>Question {questionCount + 1} / 5</Text>
                 <Text style={styles.headerText}>Score: {score}</Text>
                 <Image style={styles.image} source={{ uri: morphUri }} />
                 <Text style={styles.headerText}>Who are you morphed with?</Text>
                 <QuizOptions options={options} handleButtonClick={handleButtonClick} isCorrect={isCorrect} randomImageValue={randomImage.value} />
-            </View >
+            </>
         )
     }
 
     if (!imageUrl) {
         return (
-            <View style={styles.container}>
-                <UploadImageButton
-                    setImageUrl={setImageUrl}
-                />
-            </View>
+            <UploadImageButton
+                setImageUrl={setImageUrl}
+            />
         )
     }
-
-    return (
-        <View style={styles.container}>
-        </View>
-    )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#222',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamiy: 'sans-serif',
-    },
     image: {
         width: 400,
         height: 300,
@@ -171,15 +153,14 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 20,
     },
+    button: {
+        padding: 15,
+    },
     headerText: {
         marginTop: 15,
         fontSize: 20,
         color: '#fff',
         marginBottom: 30,
     },
-    button: {
-        backgroundColor: '#000',
-        padding: 15,
-        color: '#fff',
-    },
+
 });
