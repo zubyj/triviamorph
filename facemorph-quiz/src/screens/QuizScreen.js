@@ -1,28 +1,34 @@
+// native imports 
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
-import { Button, ActivityIndicator } from 'react-native-paper';
-import Typewriter from 'react-native-typewriter';
 
-import { getRandomImage } from '../UploadRandomImage';
+// external imports
+import { Button } from 'react-native-paper';
+
+// local imports
 import UploadImageButton from '../components/UploadImageButton';
+import LoadingScreen from './LoadingScreen';
+import { getRandomImage } from '../UploadRandomImage';
 
-import playIcon from '../../assets/icons/play.png';
+// asset imports
 import people from '../../assets/people.json';
+import playIcon from '../../assets/icons/play.png';
 
-export default function QuizScreen({ navigation }) {
+export default function QuizScreen() {
 
     const MORPH_ENDPOINT = 'https://pyaar.ai/morph';
 
     const [imageUrl, setImageUrl] = useState('');
     const [morphUri, setMorphUri] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-
     const [randomImage, setRandomImage] = useState('');
+
+    const [isLoading, setIsLoading] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
-    const [options, setOptions] = useState([]);
-    const [score, setScore] = useState(0);
 
     const [questionCount, setQuestionCount] = useState(0);
+    const [score, setScore] = useState(0);
+
+    const [options, setOptions] = useState([]);
 
     useEffect(() => {
         if (morphUri && randomImage) {
@@ -41,7 +47,7 @@ export default function QuizScreen({ navigation }) {
         let num = 3
         const related = randomImage.related;
         const shuffledRelated = related.sort(() => Math.random() - 0.5);
-        const otherOptions = shuffledRelated.slice(0, num).map((value) => people.find((person) => person.value === value).name);
+        const otherOptions = shuffledRelated.slice(0, num).map((value) => people.find((person) => person.value === value).ame);
         const allOptions = [...otherOptions, randomImage.value];
         const shuffledOptions = allOptions.sort(() => Math.random() - 0.5);
         return shuffledOptions;
@@ -114,25 +120,16 @@ export default function QuizScreen({ navigation }) {
     if (isLoading) {
         return (
             <View style={styles.container}>
-                <ActivityIndicator size="large" color="#fff" />
-                <Text style={styles.loadingText}>Loading Question {questionCount + 1}</Text>
+                <LoadingScreen text={`Creating Question ${questionCount + 1} ...`} />
             </View>
         )
     }
 
     // Add a result screen when all questions are answered
-    if (questionCount >= 5) {
+    if (questionCount >= 4) {
         return (
             <View style={styles.container}>
-                <Text style={styles.resultText}>Congratulations! You've completed the quiz!</Text>
-                <Button
-                    mode="outlined"
-                    textColor='#fff'
-                    style={styles.quizButton}
-                    onPress={() => navigation.goBack()}
-                >
-                    Go back
-                </Button>
+                <ResultsScreen />
             </View>
         )
     }
@@ -190,28 +187,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         fontFamiy: 'sans-serif',
+        fontSize: 20,
+        marginTop: 15,
     },
     image: {
-        width: 300,
-        height: 400,
+        width: 400,
+        height: 300,
     },
     text: {
         color: '#fff',
-        fontSize: 20,
-        marginTop: 15,
     },
     button: {
         backgroundColor: '#000',
         padding: 15,
+        color: '#fff',
     },
     quizButton: {
         width: '45%',
         margin: 5,
         borderRadius: 5,
-    },
-    loadingText: {
-        fontSize: 15,
-        padding: 20,
         color: '#fff',
     },
     buttonsContainer: {
@@ -222,9 +216,5 @@ const styles = StyleSheet.create({
     },
     selectedButton: {
         backgroundColor: '#999',
-    },
-    resultText: {
-        color: '#fff',
-        fontSize: 20,
     },
 });
