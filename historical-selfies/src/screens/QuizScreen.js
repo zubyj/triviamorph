@@ -21,12 +21,20 @@ export default function QuizScreen({ navigation }) {
     const [isCorrect, setIsCorrect] = useState(false);
     const [options, setOptions] = useState([]);
 
+    const [questionCount, setQuestionCount] = useState(0);
+
     useEffect(() => {
         if (morphUri && randomImage) {
             const optionsArray = generateOptions();
             setOptions(optionsArray);
         }
     }, [morphUri, randomImage]);
+
+    useEffect(() => {
+        if (questionCount === 0 && imageUrl) {
+            getMorph();
+        }
+    }, [questionCount, imageUrl]);
 
     const generateOptions = () => {
         let num = 3
@@ -41,6 +49,14 @@ export default function QuizScreen({ navigation }) {
     const handleButtonClick = (selectedOption) => {
         if (selectedOption === randomImage.value) {
             setIsCorrect(true);
+            if (questionCount < 4) {
+                setTimeout(() => {
+                    setQuestionCount(questionCount + 1);
+                    setIsCorrect(false);
+                    setMorphUri(''); // Reset morphUri to move to the next question
+                    getMorph(); // Start the morphing process for the next question
+                }, 2000); // Set a delay to show the correct answer
+            }
         }
     };
 
@@ -96,7 +112,24 @@ export default function QuizScreen({ navigation }) {
         return (
             <View style={styles.container}>
                 <ActivityIndicator size="large" color="#fff" />
-                <Text style={styles.loadingText}>Morphing...</Text>
+                <Text style={styles.loadingText}>Loading Question {questionCount + 1}</Text>
+            </View>
+        )
+    }
+
+    // Add a result screen when all questions are answered
+    if (questionCount >= 5) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.resultText}>Congratulations! You've completed the quiz!</Text>
+                <Button
+                    mode="outlined"
+                    textColor='#fff'
+                    style={styles.quizButton}
+                    onPress={() => navigation.goBack()}
+                >
+                    Go back
+                </Button>
             </View>
         )
     }
@@ -104,6 +137,7 @@ export default function QuizScreen({ navigation }) {
     if (morphUri) {
         return (
             <View style={styles.container}>
+                <Text style={styles.text}>Question {questionCount + 1} / 5</Text>
                 <Image style={styles.image} source={{ uri: morphUri }} />
                 <Text style={styles.text}>Who are you morphed with?</Text>
                 <View style={styles.buttonsContainer}>
