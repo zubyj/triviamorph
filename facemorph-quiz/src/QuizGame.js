@@ -1,14 +1,11 @@
-// native imports 
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, Text } from 'react-native';
 
 // local imports
 import UploadImageButton from './components/UploadImageButton';
 import QuizOptions from './components/QuizOptions';
-
 import LoadingScreen from './screens/LoadingScreen';
 import ResultsScreen from './screens/ResultsScreen';
-
 import { generateOptions, getMorph } from './utils/utils';
 
 export default function QuizGame() {
