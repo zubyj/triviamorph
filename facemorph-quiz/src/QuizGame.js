@@ -5,19 +5,18 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, Text } from 'react-native';
 
 // local imports
-import UploadImageButton from '../components/UploadImageButton';
-import QuizOptions from '../components/QuizOptions';
-import LoadingScreen from './LoadingScreen';
-import ResultsScreen from './ResultsScreen';
-import { getRandomImage } from '../UploadRandomImage';
+import UploadImageButton from './components/UploadImageButton';
+import QuizOptions from './components/QuizOptions';
+import LoadingScreen from './screens/LoadingScreen';
+import ResultsScreen from './screens/ResultsScreen';
+import { getRandomImage } from './UploadRandomImage';
 
 // asset imports
-import people from '../../assets/people.json';
+import people from '../assets/people.json';
 
+export default function QuizGame() {
 
-export default function QuizScreen() {
-
-    const NUM_QUESTIONS = 1;
+    const NUM_QUESTIONS = 2;
 
     const [imageUrl, setImageUrl] = useState('');
     const [morphUri, setMorphUri] = useState('');
@@ -69,6 +68,17 @@ export default function QuizScreen() {
         }
     };
 
+    const resetGameState = () => {
+        setImageUrl('');
+        setMorphUri('');
+        setRandomImage('');
+        setIsCorrect(false);
+        setIsLoading(false);
+        setQuestionCount(0);
+        setScore(0);
+        setOptions([]);
+    }
+
     async function checkImageAvailability(uri) {
         return Image.prefetch(uri)
             .then(() => true)
@@ -117,23 +127,22 @@ export default function QuizScreen() {
         }
     }
 
+    if (questionCount >= NUM_QUESTIONS) {
+        return (
+            <ResultsScreen score={score} resetGameState={resetGameState} />
+        )
+    }
     if (isLoading) {
         return (
             <LoadingScreen text={`Creating Question ${questionCount + 1} ...`} />
         )
     }
-    if (questionCount >= NUM_QUESTIONS) {
-        return (
-            <ResultsScreen score={score} />
-        )
-    }
-    if (morphUri) {
+    if (morphUri && options.length > 0) {
         return (
             <>
                 <Text style={styles.headerText}>Question {questionCount + 1} / 5</Text>
                 <Text style={styles.headerText}>Score: {score}</Text>
                 <Image style={styles.image} source={{ uri: morphUri }} />
-                <Text style={styles.headerText}>Who are you morphed with?</Text>
                 <QuizOptions options={options} handleButtonClick={handleButtonClick} isCorrect={isCorrect} randomImageValue={randomImage.value} />
             </>
         )
@@ -141,9 +150,12 @@ export default function QuizScreen() {
 
     if (!imageUrl) {
         return (
-            <UploadImageButton
-                setImageUrl={setImageUrl}
-            />
+            <>
+                <Text style={styles.headerText}>Upload a face to start</Text>
+                <UploadImageButton
+                    setImageUrl={setImageUrl}
+                />
+            </>
         )
     }
 }
@@ -152,6 +164,12 @@ const styles = StyleSheet.create({
     image: {
         width: 400,
         height: 300,
+        maxWidth: '80%',
+        borderWidth: 10,
+        borderColor: '#fff',
+        borderStyle: 'solid',
+        borderRadius: 20,
+        overflow: 'hidden',
     },
     text: {
         color: '#fff',

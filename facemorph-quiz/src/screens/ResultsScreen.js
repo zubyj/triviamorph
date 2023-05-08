@@ -3,21 +3,20 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { Button } from 'react-native-paper';
 import trophy from '../../assets/images/trophy.gif';
 
-export default function ResultsScreen({ score }) {
+export default function ResultsScreen({ score, resetGameState }) {
     return (
         <View style={styles.container}>
-            <Text style={styles.headerText}>Results</Text>
-            <Image source={trophy} style={styles.image} />
-            <Text style={styles.text}>Your final score is {score}</Text>
+            <Text style={styles.text}>Final Score: {score}</Text>
             <Button
                 mode="outlined"
                 textColor="#fff"
-                onPress={() => console.log('hello world')}
+                onPress={resetGameState}
                 style={styles.button}
             >
                 Return Home
             </Button>
-        </View>
+            <Image source={trophy} style={styles.image} />
+        </View >
     )
 }
 
@@ -26,15 +25,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    headerText: {
-        fontSize: 25,
-        color: '#fff',
-        marginBottom: 15,
+        textAlign: 'center',
+        flexDirection: 'column',
+        marginTop: 30,
     },
     text: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: 25,
         marginBottom: 20,
         marginTop: 20,
     },

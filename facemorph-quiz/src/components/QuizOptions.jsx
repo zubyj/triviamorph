@@ -25,6 +25,7 @@ const QuizOptions = ({ options, handleButtonClick, isCorrect, randomImageValue }
 
     return (
         <View style={styles.buttonsContainer}>
+            <Text style={styles.headerText}>Who are you morphed with?</Text>
             {options.map((option, index) => (
                 <Button
                     key={index}
@@ -66,7 +67,13 @@ const styles = StyleSheet.create({
     },
     incorrectButton: {
         backgroundColor: 'red',
-    }
+    },
+    headerText: {
+        marginTop: 15,
+        fontSize: 20,
+        color: '#fff',
+        marginBottom: 30,
+    },
 });
 
 export default QuizOptions;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import QuizScreen from './src/screens/QuizScreen';
+import QuizGame from './src/QuizGame';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <QuizScreen />
+      <QuizGame />
     </View>
   );
 }
