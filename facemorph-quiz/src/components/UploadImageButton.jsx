@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import { UPLOAD_ENDPOINT, AUTH_HEADER } from "@env"
 
 const UploadImageButton = ({ setImageUrl }) => {
 
     const uploadIcon = require('../../assets/icons/upload-img.png');
     const invalidIcon = require('../../assets/icons/invalid-img.png');
-
-    const MORPH_ENDPOINT = 'https://pyaar.ai/morph/upload';
 
     const [isValid, setIsValid] = useState(true);
 
@@ -57,13 +56,15 @@ const UploadImageButton = ({ setImageUrl }) => {
 
     const uploadImage = async (img) => {
         try {
+            const uploadUrl = UPLOAD_ENDPOINT;
+            const authHeader = AUTH_HEADER;
+
             const data = new FormData();
             data.append('firstImageRef', img);
-
-            const response = await fetch(MORPH_ENDPOINT, {
+            const response = await fetch(uploadUrl, {
                 method: 'POST',
                 headers: {
-                    Authorization: 'ImageMorpherV1',
+                    Authorization: authHeader,
                 },
                 body: data,
             });

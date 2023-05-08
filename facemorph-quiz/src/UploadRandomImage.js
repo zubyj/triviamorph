@@ -1,10 +1,7 @@
 import { Asset } from 'expo-asset';
 import * as FileSystem from 'expo-file-system';
-
 import people from '../assets/people.json';
-
-const MORPH_ENDPOINT = 'https://pyaar.ai/morph/upload';
-const AUTH_HEADER = 'ImageMorpherV1'
+import { UPLOAD_ENDPOINT, AUTH_HEADER } from '@env';
 
 const peopleImages = {
     tomCruise: require('../assets/images/people/tom-cruise.jpeg'),
@@ -38,7 +35,7 @@ const uploadImage = async (img) => {
         const data = new FormData();
         data.append('firstImageRef', img);
 
-        const response = await fetch(MORPH_ENDPOINT, {
+        const response = await fetch(UPLOAD_ENDPOINT, {
             method: 'POST',
             headers: {
                 Authorization: AUTH_HEADER,
@@ -47,6 +44,7 @@ const uploadImage = async (img) => {
         });
 
         if (!response.ok) {
+            await console.log(response.json());
             throw new Error('Random image upload failed');
         }
 

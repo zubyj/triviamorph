@@ -1,18 +1,22 @@
+import { MORPH_ENDPOINT, AUTH_HEADER } from '@env';
+
 // native imports 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, Image, Text } from 'react-native';
+
 // local imports
 import UploadImageButton from '../components/UploadImageButton';
 import QuizOptions from '../components/QuizOptions';
 import LoadingScreen from './LoadingScreen';
 import ResultsScreen from './ResultsScreen';
 import { getRandomImage } from '../UploadRandomImage';
+
 // asset imports
 import people from '../../assets/people.json';
 
+
 export default function QuizScreen() {
 
-    const MORPH_ENDPOINT = 'https://pyaar.ai/morph';
     const NUM_QUESTIONS = 1;
 
     const [imageUrl, setImageUrl] = useState('');
@@ -87,7 +91,7 @@ export default function QuizScreen() {
             const response = await fetch(MORPH_ENDPOINT, {
                 method: "POST",
                 headers: {
-                    Authorization: "ImageMorpherV1",
+                    Authorization: AUTH_HEADER,
                 },
                 body: data,
             });
