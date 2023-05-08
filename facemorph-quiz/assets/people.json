@@ -38,5 +38,126 @@
             "nikola-tesla",
             "abraham-lincoln"
         ]
+    },
+    {
+        "name": "Albert Einstein",
+        "value": "albert-einstein",
+        "img_require": "albertEinstein",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
+    },
+    {
+        "name": "Amelia Earhart",
+        "value": "amelia-earhart",
+        "img_require": "ameliaEarhart",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
+    },
+    {
+        "name": "Benjamin Franklin",
+        "value": "benjamin-franklin",
+        "img_require": "benjaminFranklin",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
+    },
+    {
+        "name": "Elvis Presley",
+        "value": "elvis-presley",
+        "img_require": "elvisPresley",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
+    },
+    {
+        "name": "Frida Kahlo",
+        "value": "frida-kahlo",
+        "img_require": "fridaKahlo",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
+    },
+    {
+        "name": "George Washington",
+        "value": "george-washington",
+        "img_require": "georgeWashington",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
+    },
+    {
+        "name": "John F. Kennedy",
+        "value": "john-f-kennedy",
+        "img_require": "johnFKennedy",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
+    },
+    {
+        "name": "Mahatma Gandhi",
+        "value": "mahatma-gandhi",
+        "img_require": "mahatmaGandhi",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
+    },
+    {
+        "name": "Martin Luther King Jr.",
+        "value": "martin-luther-king-jr",
+        "img_require": "martinLutherKingJr",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
+    },
+    {
+        "name": "Pablo Picasso",
+        "value": "pablo-picasso",
+        "img_require": "pabloPicasso",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
+    },
+    {
+        "name": "Princess Diana",
+        "value": "princess-diana",
+        "img_require": "princessDiana",
+        "related": [
+            "tom-cruise",
+            "nikola-tesla",
+            "abraham-lincoln",
+            "tobey-maguire"
+        ]
     }
 ]
