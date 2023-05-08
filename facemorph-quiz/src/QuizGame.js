@@ -1,5 +1,3 @@
-import { MORPH_ENDPOINT, AUTH_HEADER } from '@env';
-
 // native imports 
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, Text } from 'react-native';
@@ -7,12 +5,11 @@ import { StyleSheet, Image, Text } from 'react-native';
 // local imports
 import UploadImageButton from './components/UploadImageButton';
 import QuizOptions from './components/QuizOptions';
+
 import LoadingScreen from './screens/LoadingScreen';
 import ResultsScreen from './screens/ResultsScreen';
-import { getRandomImage } from './UploadRandomImage';
 
-// asset imports
-import people from '../assets/people.json';
+import { generateOptions, getMorph } from './utils/utils';
 
 export default function QuizGame() {
 
@@ -31,26 +28,16 @@ export default function QuizGame() {
 
     useEffect(() => {
         if (morphUri && randomImage) {
-            const optionsArray = generateOptions();
+            const optionsArray = generateOptions(randomImage);
             setOptions(optionsArray);
         }
     }, [morphUri, randomImage]);
 
     useEffect(() => {
         if (questionCount === 0 && imageUrl) {
-            getMorph();
+            getMorph({ setRandomImage, setMorphUri, setIsLoading, imageUrl });
         }
     }, [questionCount, imageUrl]);
-
-    const generateOptions = () => {
-        let num = 3
-        const related = randomImage.related;
-        const shuffledRelated = related.sort(() => Math.random() - 0.5);
-        const otherOptions = shuffledRelated.slice(0, num).map((value) => people.find((person) => person.value === value).name);
-        const allOptions = [...otherOptions, randomImage.value];
-        const shuffledOptions = allOptions.sort(() => Math.random() - 0.5);
-        return shuffledOptions;
-    };
 
     const handleButtonClick = (selectedOption) => {
         if (selectedOption === randomImage.value) {
@@ -63,7 +50,7 @@ export default function QuizGame() {
                 setQuestionCount(questionCount + 1);
                 setIsCorrect(false);
                 setMorphUri(''); // Reset morphUri to move to the next question
-                getMorph(); // Start the morphing process for the next question
+                getMorph({ setRandomImage, setMorphUri, setIsLoading, imageUrl });
             }, 2000); // Set a delay before moving to the next question
         }
     };
@@ -79,64 +66,18 @@ export default function QuizGame() {
         setOptions([]);
     }
 
-    async function checkImageAvailability(uri) {
-        return Image.prefetch(uri)
-            .then(() => true)
-            .catch(() => false);
-    }
-
-    async function getMorph() {
-        const { randomImageUrl, randomImageData } = await getRandomImage();
-        setRandomImage(randomImageData);
-
-        try {
-            setIsLoading(true);
-
-            const data = new FormData();
-            data.append("firstImageRef", imageUrl);
-            data.append("secondImageRef", randomImageUrl);
-            data.append("isAsync", "True");
-            data.append("isSequence", "False");
-
-            const response = await fetch(MORPH_ENDPOINT, {
-                method: "POST",
-                headers: {
-                    Authorization: AUTH_HEADER,
-                },
-                body: data,
-            });
-
-            if (response.ok) {
-                const resJson = await response.json();
-                const uri = resJson.morphUri;
-
-                while (!(await checkImageAvailability(uri))) {
-                    await new Promise((resolve) => setTimeout(resolve, 1000));
-                }
-
-                setMorphUri(uri);
-                setIsLoading(false);
-                return;
-            } else {
-                setIsLoading(false);
-                throw new Error(response);
-            }
-        } catch (error) {
-            setIsLoading(false);
-            console.error(error);
-        }
-    }
-
     if (questionCount >= NUM_QUESTIONS) {
         return (
             <ResultsScreen score={score} resetGameState={resetGameState} />
         )
     }
+
     if (isLoading) {
         return (
             <LoadingScreen text={`Creating Question ${questionCount + 1} ...`} />
         )
     }
+
     if (morphUri && options.length > 0) {
         return (
             <>
@@ -167,7 +108,6 @@ const styles = StyleSheet.create({
         maxWidth: '80%',
         borderWidth: 10,
         borderColor: '#fff',
-        borderStyle: 'solid',
         borderRadius: 20,
         overflow: 'hidden',
     },
@@ -184,5 +124,4 @@ const styles = StyleSheet.create({
         color: '#fff',
         marginBottom: 30,
     },
-
 });
