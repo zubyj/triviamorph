@@ -31,12 +31,12 @@ const QuizOptions = ({ options, handleButtonClick, isCorrect, randomImageValue }
                     key={index}
                     mode="outlined"
                     textColor='#fff'
-                    style={[styles.quizButton, getButtonStyle(option)]}
-                    onPress={() => handleButtonPress(option)}
+                    style={[styles.quizButton, getButtonStyle(option.value)]}
+                    onPress={() => handleButtonPress(option.value)}
                     disabled={isCorrect || isClicked}
                 >
                     <Text style={styles.text}>
-                        {option}
+                        {option.name || option.value}
                     </Text>
                 </Button>
             ))}

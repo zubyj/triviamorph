@@ -59,14 +59,18 @@ const uploadImage = async (img) => {
 };
 
 const generateOptions = (randomImage) => {
-    let num = 3
+    let numOptions = 3;
     const related = randomImage.related;
     const shuffledRelated = related.sort(() => Math.random() - 0.5);
-    const otherOptions = shuffledRelated.slice(0, num).map((value) => people.find((person) => person.value === value).name);
-    const allOptions = [...otherOptions, randomImage.value];
+    const otherOptions = shuffledRelated.slice(0, numOptions).map((value) => {
+        const person = people.find((person) => person.value === value);
+        return { name: person.name, value: person.value };
+    });
+    const allOptions = [...otherOptions, { name: randomImage.name, value: randomImage.value }];
     const shuffledOptions = allOptions.sort(() => Math.random() - 0.5);
     return shuffledOptions;
 };
+
 
 const getMorph = async ({ setRandomImage, setMorphUri, setIsLoading, imageUrl }) => {
     const { randomImageUrl, randomImageData } = await getRandomImage();
