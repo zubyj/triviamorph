@@ -104,7 +104,6 @@ export default function App() {
       {getScreen()}
     </View>
   )
-
 }
 
 const styles = StyleSheet.create({

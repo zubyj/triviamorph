@@ -22,8 +22,8 @@ const peopleImages = images.reduce((acc, curr) => {
 // Gets a random image, uploads to server, and returns the image url
 const getRandomImage = async () => {
     const randomIndex = Math.floor(Math.random() * people.length);
-    const randomFace = people[randomIndex]; // returns random face object from faces.json
-    const randomFaceKey = randomFace.img_require.toLowerCase(); // Convert to lowercase
+    const randomFace = people[randomIndex];
+    const randomFaceKey = randomFace.key.toLowerCase();
 
     const randomFaceAsset = Asset.fromModule(peopleImages[randomFaceKey]);
     await randomFaceAsset.downloadAsync();
