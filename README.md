@@ -13,6 +13,7 @@ FaceMorph Quiz is a fun and interactive mobile game built using React Native. In
 
 To get started with this project, follow these steps:
 
+
 1. Clone the repository:
 ```
 git clone https://github.com/zubyj/facemorph-quiz.git
@@ -22,6 +23,13 @@ git clone https://github.com/zubyj/facemorph-quiz.git
 ```
 cd facemorph-quiz
 npm install
+```
+
+3. Create an .env variable in the root directory with the morph API endpoints: 
+```
+MORPH_ENDPOINT=
+UPLOAD_ENDPOINT=
+AUTH_HEADER=
 ```
 
 3. Run the project on your preferred platform
@@ -49,7 +57,7 @@ npm run android
 
 ## Credits
 
-This game uses the FaceMorph API for morphing images: `https://pyaar.ai/morph`.
+This game uses our morph API for morphing images.
 
 Icons, images, and other resources are from various open sources.
 
