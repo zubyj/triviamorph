@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
+import HeaderText from './HeaderText';
 
 const QuizOptions = ({ options, handleButtonClick, isCorrect, randomImageValue }) => {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -25,7 +26,7 @@ const QuizOptions = ({ options, handleButtonClick, isCorrect, randomImageValue }
 
     return (
         <View style={styles.buttonsContainer}>
-            <Text style={styles.headerText}>Who are you morphed with?</Text>
+            <HeaderText text="Who are you morphed with?" />
             {options.map((option, index) => (
                 <Button
                     key={index}
@@ -67,12 +68,6 @@ const styles = StyleSheet.create({
     },
     incorrectButton: {
         backgroundColor: 'red',
-    },
-    headerText: {
-        marginTop: 15,
-        fontSize: 20,
-        color: '#fff',
-        marginBottom: 30,
     },
 });
 

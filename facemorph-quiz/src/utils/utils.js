@@ -118,6 +118,7 @@ const getMorph = async ({ setRandomImage, setMorphUri, setIsLoading, imageUrl })
     } catch (error) {
         setIsLoading(false);
         console.error(error);
+        return error.message;
     }
 }
 

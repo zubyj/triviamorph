@@ -1,42 +1,12 @@
 [
     {
-        "name": "Tom Cruise",
-        "value": "tom-cruise",
-        "key": "tomCruise",
-        "related": [
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
-        ]
-    },
-    {
-        "name": "Nikola Tesla",
-        "value": "nikola-tesla",
-        "key": "nikolaTesla",
-        "related": [
-            "tom-cruise",
-            "tobey-maguire",
-            "abraham-lincoln"
-        ]
-    },
-    {
         "name": "Abraham Lincoln",
         "value": "abraham-lincoln",
         "key": "abrahamLincoln",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "tobey-maguire"
-        ]
-    },
-    {
-        "name": "Tobey Maguire",
-        "value": "tobey-maguire",
-        "key": "tobeyMaguire",
-        "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -44,10 +14,9 @@
         "value": "albert-einstein",
         "key": "albertEinstein",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -55,10 +24,9 @@
         "value": "amelia-earhart",
         "key": "ameliaEarhart",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -66,10 +34,9 @@
         "value": "benjamin-franklin",
         "key": "benjaminFranklin",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -77,10 +44,9 @@
         "value": "elvis-presley",
         "key": "elvisPresley",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -88,10 +54,9 @@
         "value": "frida-kahlo",
         "key": "fridaKahlo",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -99,10 +64,9 @@
         "value": "george-washington",
         "key": "georgeWashington",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -110,10 +74,9 @@
         "value": "john-f-kennedy",
         "key": "johnFKennedy",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -121,10 +84,9 @@
         "value": "mahatma-gandhi",
         "key": "mahatmaGandhi",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -132,10 +94,9 @@
         "value": "martin-luther-king-jr",
         "key": "martinLutherKingJr",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -143,10 +104,9 @@
         "value": "pablo-picasso",
         "key": "pabloPicasso",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     },
     {
@@ -154,10 +114,9 @@
         "value": "princess-diana",
         "key": "princessDiana",
         "related": [
-            "tom-cruise",
-            "nikola-tesla",
-            "abraham-lincoln",
-            "tobey-maguire"
+            "elvis-presley",
+            "frida-kahlo",
+            "princess-diana"
         ]
     }
 ]

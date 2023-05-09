@@ -30,6 +30,7 @@ Security
 
 We implement a variety of security measures to help keep your information secure. For instance, all communication with the app and website requires HTTPS with certificate pinning.
 Our services do not target anyone under the age of 13. We do not knowingly collect personally identifiable information from children under 13 years of age. If we discover that a child under 13 has provided us with personal information, we will immediately delete it from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us so that we can take the necessary actions.
+We comply with the European Union’s General Data Protection Regulation (“GDPR”), which provides enhanced protections for personal data. If you are located in the European Economic Area (“EEA”) or Switzerland, you have certain rights and protections under the GDPR, including the right to access, rectify, or erase your personal data, and the right to restrict or object to certain processing of your personal data. If you would like to exercise any of these rights, please contact us using the contact information provided below. By using our app, you consent to the transfer of your personal data to servers located outside of the EEA or Switzerland, in accordance with this privacy policy and the GDPR
 In the future, we may sell to, buy, merge with, or partner with other businesses. In such transactions, user information may be among the transferred assets.
 
 

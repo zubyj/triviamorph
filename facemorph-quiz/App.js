@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Image, Text, View } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
+import HeaderText from './src/components/HeaderText';
 
-// local imports
-import UploadImageButton from './src/components/UploadImageButton';
-import QuizOptions from './src/components/QuizOptions';
+// screens
 import LoadingScreen from './src/screens/LoadingScreen';
 import ResultsScreen from './src/screens/ResultsScreen';
+// components
+import UploadImageButton from './src/components/UploadImageButton';
+import QuizOptions from './src/components/QuizOptions';
 import QuestionCountSelector from './src/components/QuestionCountSelector';
+// functions
 import { generateOptions, getMorph } from './src/utils/utils';
 
 export default function App() {
 
   const [imageUrl, setImageUrl] = useState('');
   const [morphUri, setMorphUri] = useState('');
-  const [randomImage, setRandomImage] = useState('');
+  const [randomImage, setRandomImage] = useState(''); // random image object from people.json
 
   const [isLoading, setIsLoading] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -46,7 +49,7 @@ export default function App() {
       setTimeout(() => {
         setQuestionCount(questionCount + 1);
         setIsCorrect(false);
-        setMorphUri(''); // Reset morphUri to move to the next question
+        setMorphUri('');
         getMorph({ setRandomImage, setMorphUri, setIsLoading, imageUrl });
       }, 2000); // Set a delay before moving to the next question
     }
@@ -66,33 +69,33 @@ export default function App() {
   const getScreen = () => {
     if (questionCount >= numQuestions) {
       return (
-        <ResultsScreen score={score} resetGameState={resetGameState} />
+        <ResultsScreen
+          score={score}
+          numQuestions={numQuestions}
+          resetGameState={resetGameState} />
       )
     }
-
     if (isLoading) {
       return (
         <LoadingScreen text={`Creating Question ${questionCount + 1} ...`} />
       )
     }
-
     if (morphUri && options.length > 0) {
       return (
         <>
-          <Text style={styles.headerText}>Question {questionCount + 1} / {numQuestions}</Text>
-          <Text style={styles.headerText}>Score: {score}</Text>
+          <HeaderText text={`Question ${questionCount + 1} / ${numQuestions}`} />
+          <HeaderText text={`Score: ${score}`} />
           <Image style={styles.image} source={{ uri: morphUri }} />
           <QuizOptions options={options} handleButtonClick={handleButtonClick} isCorrect={isCorrect} randomImageValue={randomImage.value} />
         </>
       )
     }
-
     if (!imageUrl) {
       return (
         <>
-          <Text style={styles.headerText}>Select number of questions</Text>
+          <HeaderText text="Select number of questions" />
           <QuestionCountSelector onSelectQuestionCount={setNumQuestions} />
-          <Text style={styles.headerText}>Upload a face to start</Text>
+          <HeaderText text="Upload a face to begin" />
           <UploadImageButton
             setImageUrl={setImageUrl}
           />
@@ -100,7 +103,6 @@ export default function App() {
       )
     }
   }
-
   return (
     <View style={styles.container}>
       {getScreen()}
@@ -115,7 +117,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     justifyContent: 'center',
-    fontFamiy: 'sans-serif',
   },
   image: {
     width: 400,
@@ -125,18 +126,5 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     borderRadius: 20,
     overflow: 'hidden',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 20,
-  },
-  button: {
-    padding: 15,
-  },
-  headerText: {
-    marginTop: 15,
-    fontSize: 20,
-    color: '#fff',
-    marginBottom: 30,
-  },
+  }
 });
