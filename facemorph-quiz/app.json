@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "historical-selfies",
-    "slug": "historical-selfies",
+    "name": "FaceMorphQuiz",
+    "slug": "FaceMorphQuiz",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
