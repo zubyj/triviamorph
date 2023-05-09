@@ -6,11 +6,10 @@ import UploadImageButton from './src/components/UploadImageButton';
 import QuizOptions from './src/components/QuizOptions';
 import LoadingScreen from './src/screens/LoadingScreen';
 import ResultsScreen from './src/screens/ResultsScreen';
+import QuestionCountSelector from './src/components/QuestionCountSelector';
 import { generateOptions, getMorph } from './src/utils/utils';
 
 export default function App() {
-
-  const NUM_QUESTIONS = 2;
 
   const [imageUrl, setImageUrl] = useState('');
   const [morphUri, setMorphUri] = useState('');
@@ -19,6 +18,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 
+  const [numQuestions, setNumQuestions] = useState(1);
   const [questionCount, setQuestionCount] = useState(0);
   const [score, setScore] = useState(0);
   const [options, setOptions] = useState([]);
@@ -42,7 +42,7 @@ export default function App() {
       setIsCorrect(true);
     }
 
-    if (questionCount < NUM_QUESTIONS) {
+    if (questionCount < numQuestions) {
       setTimeout(() => {
         setQuestionCount(questionCount + 1);
         setIsCorrect(false);
@@ -64,7 +64,7 @@ export default function App() {
   }
 
   const getScreen = () => {
-    if (questionCount >= NUM_QUESTIONS) {
+    if (questionCount >= numQuestions) {
       return (
         <ResultsScreen score={score} resetGameState={resetGameState} />
       )
@@ -79,7 +79,7 @@ export default function App() {
     if (morphUri && options.length > 0) {
       return (
         <>
-          <Text style={styles.headerText}>Question {questionCount + 1} / {NUM_QUESTIONS}</Text>
+          <Text style={styles.headerText}>Question {questionCount + 1} / {numQuestions}</Text>
           <Text style={styles.headerText}>Score: {score}</Text>
           <Image style={styles.image} source={{ uri: morphUri }} />
           <QuizOptions options={options} handleButtonClick={handleButtonClick} isCorrect={isCorrect} randomImageValue={randomImage.value} />
@@ -90,6 +90,8 @@ export default function App() {
     if (!imageUrl) {
       return (
         <>
+          <Text style={styles.headerText}>Select number of questions</Text>
+          <QuestionCountSelector onSelectQuestionCount={setNumQuestions} />
           <Text style={styles.headerText}>Upload a face to start</Text>
           <UploadImageButton
             setImageUrl={setImageUrl}
