@@ -1,0 +1,28 @@
+Terms & Conditions
+
+By downloading or using the FaceMorph Quiz app, you agree to these terms and conditions. Please read them carefully before using the app. You are not allowed to copy, modify, attempt to extract the source code, translate the app into other languages, or create derivative versions of the app. The app and all its trademarks, copyright, database rights, and other intellectual property rights remain the property of Zohaib Javed.
+
+Zohaib Javed is committed to ensuring that the app is as useful and efficient as possible. We reserve the right to make changes to the app or charge for its services at any time and for any reason. We will clearly inform you about any charges for the app or its services.
+
+The FaceMorph Quiz app stores and processes personal data you provide to offer our Service. You are responsible for keeping your device and app access secure. We recommend not jailbreaking or rooting your device, as doing so can compromise its security and may cause the app to malfunction.
+
+The app uses third-party services with their own Terms and Conditions.
+
+
+Zohaib Javed is not responsible for certain aspects related to your use of the app. The app requires an active internet connection, either through Wi-Fi or mobile data, to function fully. Zohaib Javed is not responsible for the app's limited functionality if you lack Wi-Fi access or have no data allowance remaining.
+
+If using the app without Wi-Fi, remember that your mobile network provider's agreement terms still apply. You may incur data or other third-party charges while using the app. By using the app, you accept responsibility for these charges, including roaming data charges if you use the app outside your home territory without disabling data roaming. If you are not the device's bill payer, we assume you have received permission from the bill payer to use the app.
+
+Zohaib Javed is not responsible for your device's battery life while using the app. Additionally, while we strive to ensure the app's accuracy, we rely on third parties for information. Zohaib Javed accepts no liability for any direct or indirect losses resulting from relying on the app's functionality.
+
+We may update the app at any time. The app is currently available on iOS, and system requirements may change. To continue using the app, you must download updates. Zohaib Javed does not guarantee app updates for compatibility with your device's iOS version. You agree to accept updates when offered. We may also stop providing the app or terminate its use without notice. Upon termination, the rights and licenses granted to you in these terms will end, and you must stop using the app and delete it from your device.
+
+Changes to These Terms and Conditions
+
+We may update our Terms and Conditions from time to time. We recommend reviewing this page periodically for changes. We will notify you of any changes by posting the new Terms and Conditions on this page.
+
+These Terms and Conditions are effective as of 2023-05-09.
+
+Contact Us
+
+If you have any questions or suggestions about our Terms and Conditions, please contact us at zubydevelops@gmail.com.
