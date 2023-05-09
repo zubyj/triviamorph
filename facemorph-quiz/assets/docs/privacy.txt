@@ -1,0 +1,52 @@
+Privacy Policy
+
+The FaceMorph Quiz app, provided by Zohaib Javed at no cost, is intended for use "as is."
+
+This page informs visitors about our policies regarding the collection, use, and disclosure of Personal Information for users of FaceMorph Quiz.
+
+By choosing to use FaceMorph Quiz, you agree to the collection and use of information in accordance with this policy. We will not use or share your information with anyone except as described in this Privacy Policy.
+
+The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at FaceMorph Quiz unless otherwise defined in this Privacy Policy.
+
+
+Information Collection and Use
+
+The image uploaded by the user is temporarily stored for the purpose of morphing the image. The final morphed image is also stored on the server, so the link to the morphed image remains valid.
+
+We use the information we collect to operate and improve our website, apps, and customer support.
+
+Our server software may also store basic technical information, such as your IP address, in temporary memory or logs.
+
+We do not explicitly use cookies.
+
+
+Security
+
+We implement a variety of security measures to help keep your information secure. For instance, all communication with the app and website requires HTTPS with certificate pinning.
+
+
+There are no links to other sites.
+
+Children’s Privacy
+
+Our services do not target anyone under the age of 13. We do not knowingly collect personally identifiable information from children under 13 years of age. If we discover that a child under 13 has provided us with personal information, we will immediately delete it from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us so that we can take the necessary actions.
+
+Changes to This Privacy Policy
+
+We may update our Privacy Policy from time to time. We recommend that you review this page periodically for any changes. Any changes to the Privacy Policy will be posted on this page and will be effective as of the date specified.
+
+This policy is effective as of 2023-05-09
+
+
+Additional 
+
+In the future, we may sell to, buy, merge with, or partner with other businesses. In such transactions, user information may be among the transferred assets.
+
+
+Contact Us
+
+If you have any questions or suggestions about our Privacy Policy, please do not hesitate to contact us at zubydevelops@gmail.com.
+
+
+
+
