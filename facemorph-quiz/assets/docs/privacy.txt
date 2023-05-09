@@ -11,6 +11,8 @@ The terms used in this Privacy Policy have the same meanings as in our Terms and
 
 Information Collection and Use
 
+We do not share personal information with outside parties except to the extent necessary to accomplish core app functionality.
+
 The image uploaded by the user is temporarily stored for the purpose of morphing the image. The final morphed image is also stored on the server, so the link to the morphed image remains valid.
 
 We use the information we collect to operate and improve our website, apps, and customer support.
@@ -23,7 +25,6 @@ We do not explicitly use cookies.
 Security
 
 We implement a variety of security measures to help keep your information secure. For instance, all communication with the app and website requires HTTPS with certificate pinning.
-
 
 There are no links to other sites.
 
@@ -40,7 +41,11 @@ This policy is effective as of 2023-05-09
 
 Additional 
 
+We comply with the California Online Privacy Protection Act. We therefore will not distribute your personal information to outside parties without your consent.
+
 In the future, we may sell to, buy, merge with, or partner with other businesses. In such transactions, user information may be among the transferred assets.
+
+We may delete your information at any time and for any reason, such as technical needs, legal concerns, abuse prevention, removal of idle accounts, data loss, or any other reason.
 
 
 Contact Us
