@@ -8,6 +8,7 @@ We may update our Privacy Policy from time to time. We recommend that you review
 
 
 Information Collection and Use
+
 We comply with the California Online Privacy Protection Act. We therefore will not distribute your personal information to outside parties without your consent.
 We do not share personal information with outside parties except to the extent necessary to accomplish core app functionality.
 The image uploaded by the user is temporarily stored for the purpose of morphing the image. 
@@ -17,11 +18,20 @@ Our server software may also store basic technical information, such as your IP 
 We may delete your information at any time and for any reason, such as technical needs, legal concerns, abuse prevention, removal of idle accounts, data loss, or any other reason.
 
 
+Analytics
+
+We use Firebase Analytics, a third-party analytics tool provided by Google, to track the number of morph requests. Firebase Analytics collects data such as your device information, usage data, and user demographics. This information is used to improve the app's performance and to provide better services to our users.
+Firebase Analytics is subject to Google's privacy policy, which you can find here: https://policies.google.com/privacy. We confirm that Google provides the same or equal protection of user data as stated in this privacy policy and required by the iOS app guidelines.
+By using the app, you consent to the collection and use of your data by Firebase Analytics in accordance with their privacy policy and this privacy policy.
+If you have any questions or concerns about how we use Firebase Analytics, please do not hesitate to contact us at zubydevelops@gmail.com.
+
+
 Security
 
 We implement a variety of security measures to help keep your information secure. For instance, all communication with the app and website requires HTTPS with certificate pinning.
 Our services do not target anyone under the age of 13. We do not knowingly collect personally identifiable information from children under 13 years of age. If we discover that a child under 13 has provided us with personal information, we will immediately delete it from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us so that we can take the necessary actions.
 In the future, we may sell to, buy, merge with, or partner with other businesses. In such transactions, user information may be among the transferred assets.
+
 
 Contact Us
 

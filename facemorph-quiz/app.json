@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "FaceMorphQuiz",
+    "name": "FaceMorph Quiz",
     "slug": "FaceMorphQuiz",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,8 +15,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.FaceMorphQuiz"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
@@ -26,11 +25,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "aa907b52-62ab-4ad2-ba3c-f9438c08c9ee"
-      }
     }
   }
 }
