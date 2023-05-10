@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
+import { Dimensions } from 'react-native';
 import HeaderText from './HeaderText';
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+// iPad dimensions in portrait
+const isIpad = (windowHeight >= 1024 && windowWidth >= 768) || (windowHeight >= 768 && windowWidth >= 1024);
+
+
 const QuizOptions = ({ options, handleButtonClick, isCorrect, randomImageValue }) => {
+
     const [selectedOption, setSelectedOption] = useState(null);
     const [isClicked, setIsClicked] = useState(false);
 
@@ -26,7 +35,9 @@ const QuizOptions = ({ options, handleButtonClick, isCorrect, randomImageValue }
 
     return (
         <View style={styles.buttonsContainer}>
-            <HeaderText text="Who are you morphed with?" />
+            <View style={styles.header}>
+                <HeaderText text="Who are you morphed with?" />
+            </View>
             {options.map((option, index) => (
                 <Button
                     key={index}
@@ -46,13 +57,20 @@ const QuizOptions = ({ options, handleButtonClick, isCorrect, randomImageValue }
 };
 
 const styles = StyleSheet.create({
+    header: {
+        flexDirection: 'row',
+        marginTop: 10,
+        marginBottom: 10,
+        width: '100%',
+        justifyContent: 'center',
+    },
     buttonsContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
     },
     quizButton: {
-        width: '45%',
+        width: isIpad ? 600 : '45%',
         margin: 5,
         borderRadius: 5,
     },

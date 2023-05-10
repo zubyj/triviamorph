@@ -14,6 +14,9 @@ const UploadImageButton = ({ setImageUrl }) => {
     const pickImage = async () => {
         try {
             const selectedImage = await selectImage();
+            if (!selectedImage) {
+                return;
+            }
             const uploadedUserImage = await uploadSelectedImage(selectedImage);
             setImageUrl(uploadedUserImage);
         }
