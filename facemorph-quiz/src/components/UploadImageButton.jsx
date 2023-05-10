@@ -12,12 +12,14 @@ const UploadImageButton = ({ setImageUrl }) => {
     const [isValid, setIsValid] = useState(true);
 
     const pickImage = async () => {
-        const selectedImage = await selectImage();
-        if (!selectedImage) {
-            return
+        try {
+            const selectedImage = await selectImage();
+            const uploadedUserImage = await uploadSelectedImage(selectedImage);
+            setImageUrl(uploadedUserImage);
         }
-        const uploadedUserImage = await uploadSelectedImage(selectedImage);
-        setImageUrl(uploadedUserImage);
+        catch (error) {
+            console.log(error);
+        }
     };
 
     const selectImage = async () => {
