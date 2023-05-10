@@ -85,7 +85,7 @@
     },
     {
         "name": "John F. Kennedy",
-        "value": "john-f-kenneda",
+        "value": "john-f-kennedy",
         "key": "johnFKennedy",
         "related": [
             "elvis-presley",
@@ -108,7 +108,7 @@
         "value": "martin-luther-king-jr",
         "key": "martinLutherKingJr",
         "related": [
-            "matatma-gandhi",
+            "mahatma-gandhi",
             "elvis-presley",
             "john-f-kennedy"
         ]
@@ -118,7 +118,7 @@
         "value": "pablo-picasso",
         "key": "pabloPicasso",
         "related": [
-            "matatma-gandhi",
+            "mahatma-gandhi",
             "elvis-presley",
             "john-f-kennedy"
         ]

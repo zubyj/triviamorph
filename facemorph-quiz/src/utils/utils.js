@@ -43,6 +43,7 @@ const uploadImage = async (img) => {
     try {
         const data = new FormData();
         data.append('firstImageRef', img);
+        data.append('clientId', 'FaceMorphQuiz');
 
         const response = await fetch(UPLOAD_ENDPOINT, {
             method: 'POST',
@@ -91,6 +92,7 @@ const getMorph = async ({ setRandomImage, setMorphUri, setIsLoading, imageUrl })
         data.append("secondImageRef", randomImageUrl);
         data.append("isAsync", "True");
         data.append("isSequence", "False");
+        data.append("clientID", "FaceMorphQuiz");
 
         const response = await fetch(MORPH_ENDPOINT, {
             method: "POST",

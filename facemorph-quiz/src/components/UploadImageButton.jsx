@@ -61,6 +61,7 @@ const UploadImageButton = ({ setImageUrl }) => {
 
             const data = new FormData();
             data.append('firstImageRef', img);
+            data.append('clientId', 'FaceMorphQuiz')
             const response = await fetch(uploadUrl, {
                 method: 'POST',
                 headers: {

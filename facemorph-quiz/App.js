@@ -94,7 +94,7 @@ export default function App() {
       return (
         <>
           <HeaderText text="Select number of questions" />
-          <QuestionCountSelector onSelectQuestionCount={setNumQuestions} />
+          <QuestionCountSelector questionCount={numQuestions} onSelectQuestionCount={setNumQuestions} />
           <HeaderText text="Upload a face to begin" />
           <UploadImageButton
             setImageUrl={setImageUrl}
