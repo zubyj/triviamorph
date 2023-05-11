@@ -2,9 +2,9 @@
 
 **Introduction**
 
-Our app, FaceMorph Quiz, respects your privacy and is committed to protecting it through our compliance with this policy. This policy describes the types of information we may collect from you or that you may provide when you use FaceMorph Quiz and our practices for collecting, using, maintaining, protecting, and disclosing that information. By using FaceMorph Quiz, you consent to our privacy policy.
+Our app, FaceMorph Quiz, respects your privacy and is committed to protecting it through our compliance with this policy. By using FaceMorph Quiz, you consent to our privacy policy.
 
-**Data Collection**
+**Face Data Collection**
 
 The user must upload an image of their face for the app to work. The uploaded image is temporarily stored on our server to morph the image. The final morphed image is also temporarily stored on our server to display to users. After 24 hours, both the image uploaded by the user and the final morphed image are deleted from the server. This is to protect the privacy of our users.
 
