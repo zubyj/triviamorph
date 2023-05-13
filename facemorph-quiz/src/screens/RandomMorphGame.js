@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
+import { Button } from 'react-native-paper';
 
 import LoadingScreen from './LoadingScreen';
 import ResultsScreen from './ResultsScreen';
-import UploadImageButton from '../components/UploadImageButton';
 import QuizOptions from '../components/QuizOptions';
 import QuestionCountSelector from '../components/QuestionCountSelector';
 import HeaderText from '../components/HeaderText';
-import { generateOptions, getMorph } from '../utils/utils';
+import { generateMorphOptions } from '../utils/randomMorph';
+import morphs from '../../assets/morphs.json';
 
-export default function FaceMorphScreen() {
+export default function RandomMorphGame() {
 
-    const [imageUrl, setImageUrl] = useState('');
-    const [morphUri, setMorphUri] = useState('');
-    const [randomImage, setRandomImage] = useState(''); // random image object from people.json
-
+    const [selectedMorph, setSelectedMorph] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
 
@@ -24,20 +22,23 @@ export default function FaceMorphScreen() {
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
-        if (morphUri && randomImage) {
-            const optionsArray = generateOptions(randomImage);
+        if (selectedMorph.compositeImage) {
+            const optionsArray = generateMorphOptions(selectedMorph);
             setOptions(optionsArray);
         }
-    }, [morphUri, randomImage]);
+    }, [selectedMorph]);
+
 
     useEffect(() => {
-        if (questionCount === 0 && imageUrl) {
-            getMorph({ setRandomImage, setMorphUri, setIsLoading, imageUrl });
+        if (questionCount === 0) {
+            let randomIndex = Math.floor(Math.random() * morphs.length);
+            setSelectedMorph(morphs[randomIndex]);
+            setIsLoading(false);
         }
-    }, [questionCount, imageUrl]);
+    }, [questionCount]);
 
     const handleButtonClick = (selectedOption) => {
-        if (selectedOption === randomImage.value) {
+        if (selectedMorph.compositeImage.components.some(component => component.slug === selectedOption)) {
             setScore(score + 1);
             setIsCorrect(true);
         }
@@ -46,16 +47,15 @@ export default function FaceMorphScreen() {
             setTimeout(() => {
                 setQuestionCount(questionCount + 1);
                 setIsCorrect(false);
-                setMorphUri('');
-                getMorph({ setRandomImage, setMorphUri, setIsLoading, imageUrl });
+                setSelectedMorph({});
+                let randomIndex = Math.floor(Math.random() * morphs.length);
+                setSelectedMorph(morphs[randomIndex]);
             }, 2000); // Set a delay before moving to the next question
         }
     };
 
     const resetGameState = () => {
-        setImageUrl('');
-        setMorphUri('');
-        setRandomImage('');
+        setSelectedMorph({});
         setIsCorrect(false);
         setIsLoading(false);
         setQuestionCount(0);
@@ -77,25 +77,27 @@ export default function FaceMorphScreen() {
                 <LoadingScreen text={`Creating Question ${questionCount + 1} ...`} />
             )
         }
-        if (morphUri && options.length > 0) {
+        if (selectedMorph.compositeImage && options.length > 0) {
             return (
                 <>
                     <HeaderText text={`Question ${questionCount + 1} / ${numQuestions}`} />
                     <HeaderText text={`Score: ${score}`} />
-                    <Image style={styles.image} source={{ uri: morphUri }} />
-                    <QuizOptions options={options} handleButtonClick={handleButtonClick} isCorrect={isCorrect} randomImageValue={randomImage.value} />
+                    <Image style={styles.image} source={{ uri: `../../assets/images/${selectedMorph.compositeImage.filename}` }} />
+                    <QuizOptions options={options} handleButtonClick={handleButtonClick} isCorrect={isCorrect} randomImageValue={selectedMorph.compositeImage.components[0].slug} />
                 </>
             )
         }
-        if (!imageUrl) {
+        if (!selectedMorph.compositeImage) {
             return (
                 <>
                     <HeaderText text="Select number of questions" />
                     <QuestionCountSelector questionCount={numQuestions} onSelectQuestionCount={setNumQuestions} />
-                    <HeaderText text="Upload a face to begin" />
-                    <UploadImageButton
-                        setImageUrl={setImageUrl}
-                    />
+                    <HeaderText text="Press start to begin" />
+                    <Button title="Start" onPress={() => {
+                        let randomIndex = Math.floor(Math.random() * morphs.length);
+                        setSelectedMorph(morphs[randomIndex]);
+                        setIsLoading(true);
+                    }} />
                 </>
             )
         }
@@ -125,3 +127,5 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     }
 });
+
+

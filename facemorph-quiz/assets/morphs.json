@@ -1,0 +1,22 @@
+[
+    {
+        "compositeImage": {
+            "filename": "gandhi-mlk.jpg",
+            "components": [
+                {
+                    "name": "Mahatma Gandhi",
+                    "slug": "mahatma-gandhi"
+                },
+                {
+                    "name": "Martin Luther King Jr",
+                    "slug": "martin-luther-king-jr"
+                }
+            ]
+        },
+        "related": [
+            "Malcolm X",
+            "Nelson Mandela",
+            "Rosa Parks"
+        ]
+    }
+]

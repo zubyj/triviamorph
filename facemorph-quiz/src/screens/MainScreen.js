@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
 import QuestionCountSelector from '../components/QuestionCountSelector';
 import HeaderText from '../components/HeaderText';
@@ -19,16 +19,15 @@ export default function MainScreen({ navigation }) {
             <HeaderText text="Select the game" />
             <Button
                 mode="outlined"
-                onPress={() => navigation.navigate('Results')}
+                onPress={() => navigation.navigate('RandomMorph')}
                 textColor='#D8BFD8'
                 style={styles.button}
             >
                 Morph random faces
             </Button>
-            <HeaderText text="OR" />
             <Button
                 mode="outlined"
-                onPress={() => navigation.navigate('App')}
+                onPress={() => navigation.navigate('UserMorph')}
                 textColor='#D8BFD8'
                 style={styles.button}
             >
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     button: {
-        margin: 5,
+        margin: 20,
         width: 250,
         padding: 10,
         borderRadius: 5,
