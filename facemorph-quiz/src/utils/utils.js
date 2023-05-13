@@ -79,7 +79,6 @@ const generateOptions = (randomImage) => {
     return shuffledOptions;
 };
 
-
 const getMorph = async ({ setRandomImage, setMorphUri, setIsLoading, imageUrl }) => {
     const { randomImageUrl, randomImageData } = await getRandomImage();
     setRandomImage(randomImageData);
@@ -109,7 +108,7 @@ const getMorph = async ({ setRandomImage, setMorphUri, setIsLoading, imageUrl })
             while (!(await checkImageAvailability(uri))) {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
             }
-
+            console.log(uri);
             setMorphUri(uri);
             setIsLoading(false);
             return;
