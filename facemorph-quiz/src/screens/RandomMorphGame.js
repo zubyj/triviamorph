@@ -4,18 +4,18 @@ import { StyleSheet, Image, View } from 'react-native';
 import LoadingScreen from './LoadingScreen';
 import ResultsScreen from './ResultsScreen';
 import QuizOptions from '../components/QuizOptions';
-import QuestionCountSelector from '../components/QuestionCountSelector';
 import HeaderText from '../components/HeaderText';
 import { generateMorphOptions } from '../utils/randomMorph';
-import morphs from '../../assets/morphs.json';
+import morphs from '../../assets/morphs';
 
-export default function RandomMorphGame() {
+export default function RandomMorphGame({ route }) {
+
+    const numQuestions = route.params.numQuestions;
 
     const [selectedMorph, setSelectedMorph] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
 
-    const [numQuestions, setNumQuestions] = useState(1);
     const [questionCount, setQuestionCount] = useState(0);
     const [score, setScore] = useState(0);
     const [options, setOptions] = useState([]);
@@ -30,6 +30,8 @@ export default function RandomMorphGame() {
     useEffect(() => {
         if (questionCount === 0) {
             let randomIndex = Math.floor(Math.random() * morphs.length);
+            console.log('Random index:', randomIndex);
+            console.log('Morph at random index:', morphs[randomIndex]);
             setSelectedMorph(morphs[randomIndex]);
             setIsLoading(false);
         }
@@ -61,6 +63,7 @@ export default function RandomMorphGame() {
         setOptions([]);
     }
 
+
     const getScreen = () => {
         if (questionCount >= numQuestions) {
             return (
@@ -75,38 +78,27 @@ export default function RandomMorphGame() {
                 <LoadingScreen text={`Creating Question ${questionCount + 1} ...`} />
             )
         }
-        if (selectedMorph.compositeImage && options.length > 0) {
+        if (selectedMorph.compositeImage) {
             return (
                 <>
                     <HeaderText text={`Question ${questionCount + 1} / ${numQuestions}`} />
                     <HeaderText text={`Score: ${score}`} />
-                    <Image style={styles.image} source={{ uri: `../../assets/images/${selectedMorph.compositeImage.filename}` }} />
+                    <Image style={styles.image} source={selectedMorph.compositeImage.filename} />
                     <QuizOptions options={options} handleButtonClick={handleButtonClick} isCorrect={isCorrect} randomImageValue={selectedMorph.compositeImage.components[0].slug} />
                 </>
             )
-
-            if (!selectedMorph.compositeImage) {
-                return (
-                    <>
-                        <HeaderText text="Select number of questions" />
-                        <QuestionCountSelector questionCount={numQuestions} onSelectQuestionCount={setNumQuestions} />
-                        <HeaderText text="Press start to begin" />
-                        <Button title="Start" onPress={() => {
-                            let randomIndex = Math.floor(Math.random() * morphs.length);
-                            setSelectedMorph(morphs[randomIndex]);
-                            setIsLoading(true);
-                        }} />
-                    </>
-                )
-            }
         }
-        return (
-            <View style={styles.container}>
-                {getScreen()}
-            </View>
-        )
     }
+
+
+
+    return (
+        <View style={styles.container}>
+            {getScreen()}
+        </View>
+    )
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

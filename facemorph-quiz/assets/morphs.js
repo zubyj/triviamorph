@@ -1,27 +1,7 @@
-[
+export default [
     {
         "compositeImage": {
-            "filename": "assets/images/morphed-images/gandhi-mlk.jpg",
-            "components": [
-                {
-                    "name": "Mahatma Gandhi",
-                    "slug": "mahatma-gandhi"
-                },
-                {
-                    "name": "Martin Luther King Jr",
-                    "slug": "martin-luther-king-jr"
-                }
-            ]
-        },
-        "related": [
-            "Malcolm X",
-            "Nelson Mandela",
-            "Rosa Parks"
-        ]
-    },
-    {
-        "compositeImage": {
-            "filename": "assets/images/morphed-images/einstein-audrey.jpeg",
+            "filename": require("./images/morphed-images/einstein-audrey.jpeg"),
             "components": [
                 {
                     "name": "Albert Einstein",
@@ -41,7 +21,7 @@
     },
     {
         "compositeImage": {
-            "filename": "assets/images/morphed-images/einstein-diana.jpeg",
+            "filename": require("./images/morphed-images/einstein-diana.jpeg"),
             "components": [
                 {
                     "name": "Albert Einstein",
@@ -61,7 +41,7 @@
     },
     {
         "compositeImage": {
-            "filename": "assets/images/morphed-images/einstein-jfk.jpeg",
+            "filename": require("./images/morphed-images/einstein-jfk.jpeg"),
             "components": [
                 {
                     "name": "Albert Einstein",
@@ -81,7 +61,7 @@
     },
     {
         "compositeImage": {
-            "filename": "assets/images/morphed-images/mlk-amelia.jpeg",
+            "filename": require("./images/morphed-images/mlk-amelia.jpeg"),
             "components": [
                 {
                     "name": "Martin Luther King Jr",
@@ -101,7 +81,7 @@
     },
     {
         "compositeImage": {
-            "filename": "assets/images/morphed-images/mlk-elvis.jpeg",
+            "filename": require("./images/morphed-images/mlk-elvis.jpeg"),
             "components": [
                 {
                     "name": "Martin Luther King Jr",
@@ -121,7 +101,7 @@
     },
     {
         "compositeImage": {
-            "filename": "assets/images/morphed-images/mlk-frida.jpeg",
+            "filename": require("./images/morphed-images/mlk-frida.jpeg"),
             "components": [
                 {
                     "name": "Martin Luther King Jr",
@@ -139,4 +119,6 @@
             "Nelson Mandela"
         ]
     }
-]
+];
+
+
