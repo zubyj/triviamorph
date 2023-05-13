@@ -35,9 +35,6 @@ const QuizOptions = ({ options, handleButtonClick, isCorrect, randomImageValue }
 
     return (
         <View style={styles.buttonsContainer}>
-            <View style={styles.header}>
-                <HeaderText text="Who are you morphed with?" />
-            </View>
             {options.map((option, index) => (
                 <Button
                     key={index}
@@ -57,13 +54,6 @@ const QuizOptions = ({ options, handleButtonClick, isCorrect, randomImageValue }
 };
 
 const styles = StyleSheet.create({
-    header: {
-        flexDirection: 'row',
-        marginTop: 10,
-        marginBottom: 10,
-        width: '100%',
-        justifyContent: 'center',
-    },
     buttonsContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
