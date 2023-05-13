@@ -5,11 +5,12 @@ import LoadingScreen from './LoadingScreen';
 import ResultsScreen from './ResultsScreen';
 import UploadImageButton from '../components/UploadImageButton';
 import QuizOptions from '../components/QuizOptions';
-import QuestionCountSelector from '../components/QuestionCountSelector';
 import HeaderText from '../components/HeaderText';
 import { generateOptions, getMorph } from '../utils/utils';
 
-export default function UserMorphGame() {
+export default function UserMorphGame({ route }) {
+
+    const numQuestions = route.params.numQuestions
 
     const [imageUrl, setImageUrl] = useState('');
     const [morphUri, setMorphUri] = useState('');
@@ -18,7 +19,6 @@ export default function UserMorphGame() {
     const [isLoading, setIsLoading] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
 
-    const [numQuestions, setNumQuestions] = useState(1);
     const [questionCount, setQuestionCount] = useState(0);
     const [score, setScore] = useState(0);
     const [options, setOptions] = useState([]);
@@ -90,8 +90,6 @@ export default function UserMorphGame() {
         if (!imageUrl) {
             return (
                 <>
-                    <HeaderText text="Select number of questions" />
-                    <QuestionCountSelector questionCount={numQuestions} onSelectQuestionCount={setNumQuestions} />
                     <HeaderText text="Upload a face to begin" />
                     <UploadImageButton
                         setImageUrl={setImageUrl}

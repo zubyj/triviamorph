@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
-import { Button } from 'react-native-paper';
 
 import LoadingScreen from './LoadingScreen';
 import ResultsScreen from './ResultsScreen';
@@ -27,7 +26,6 @@ export default function RandomMorphGame() {
             setOptions(optionsArray);
         }
     }, [selectedMorph]);
-
 
     useEffect(() => {
         if (questionCount === 0) {
@@ -86,29 +84,29 @@ export default function RandomMorphGame() {
                     <QuizOptions options={options} handleButtonClick={handleButtonClick} isCorrect={isCorrect} randomImageValue={selectedMorph.compositeImage.components[0].slug} />
                 </>
             )
-        }
-        if (!selectedMorph.compositeImage) {
-            return (
-                <>
-                    <HeaderText text="Select number of questions" />
-                    <QuestionCountSelector questionCount={numQuestions} onSelectQuestionCount={setNumQuestions} />
-                    <HeaderText text="Press start to begin" />
-                    <Button title="Start" onPress={() => {
-                        let randomIndex = Math.floor(Math.random() * morphs.length);
-                        setSelectedMorph(morphs[randomIndex]);
-                        setIsLoading(true);
-                    }} />
-                </>
-            )
-        }
-    }
-    return (
-        <View style={styles.container}>
-            {getScreen()}
-        </View>
-    )
-}
 
+            if (!selectedMorph.compositeImage) {
+                return (
+                    <>
+                        <HeaderText text="Select number of questions" />
+                        <QuestionCountSelector questionCount={numQuestions} onSelectQuestionCount={setNumQuestions} />
+                        <HeaderText text="Press start to begin" />
+                        <Button title="Start" onPress={() => {
+                            let randomIndex = Math.floor(Math.random() * morphs.length);
+                            setSelectedMorph(morphs[randomIndex]);
+                            setIsLoading(true);
+                        }} />
+                    </>
+                )
+            }
+        }
+        return (
+            <View style={styles.container}>
+                {getScreen()}
+            </View>
+        )
+    }
+}
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -127,5 +125,3 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     }
 });
-
-
