@@ -24,6 +24,7 @@ export default function MainScreen({ navigation }) {
             <HeaderText text="Select the game" />
             <Button
                 mode={selectedGame === 'RandomMorph' ? "contained" : "outlined"}
+                icon="dice-multiple"
                 onPress={() => setSelectedGame('RandomMorph')}
                 textColor='#fff'
                 style={styles.button}
@@ -32,6 +33,7 @@ export default function MainScreen({ navigation }) {
             </Button>
             <Button
                 mode={selectedGame === 'UserMorph' ? "contained" : "outlined"}
+                icon="camera"
                 onPress={() => setSelectedGame('UserMorph')}
                 textColor='#fff'
                 style={styles.button}
@@ -40,11 +42,12 @@ export default function MainScreen({ navigation }) {
             </Button>
             <Button
                 mode="outlined"
+                icon="play"
                 onPress={navigateToGame}
                 textColor='#fff'
                 style={[styles.button, styles.submitButton,]}
             >
-                Submit
+                Play
             </Button>
         </View >
     );
