@@ -60,6 +60,7 @@ export default function RandomMorphGame({ route }) {
                 setQuestionCount(questionCount + 1);
                 setIsCorrect(false);
                 setSelectedMorph({});
+                setIsSubmitted(false);
                 setSelectedOptions([]); // Reset selected options
                 let randomIndex = Math.floor(Math.random() * morphs.length);
                 setSelectedMorph(morphs[randomIndex]);
