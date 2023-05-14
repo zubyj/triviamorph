@@ -46,6 +46,12 @@ export default function RandomMorphGame({ route }) {
 
 
     const handleSubmit = () => {
+        if (selectedOptions.length < 2) {
+            alert('Please select two options');
+            return;
+        }
+
+
         setIsSubmitted(true);
 
         if (selectedOptions.every(option => selectedMorph.compositeImage.components.some(component => component.slug === option))) {
