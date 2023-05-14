@@ -59,8 +59,6 @@ const QuizOptions = ({ options, handleButtonClick, isCorrect, randomImageValue }
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
-        marginTop: 10,
-        marginBottom: 10,
         width: '100%',
         justifyContent: 'center',
     },

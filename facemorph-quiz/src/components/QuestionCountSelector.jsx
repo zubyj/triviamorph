@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
-const QuestionCountSelector = ({ questionCount, onSelectQuestionCount }) => {
+const QuestionCountSelector = ({ numQuestions, setNumQuestions }) => {
 
-    const [selected, setSelected] = useState(questionCount);
+    const [selected, setSelected] = useState(numQuestions);
 
     const handleButtonClick = (count) => {
         setSelected(count);
-        onSelectQuestionCount(count);
+        setNumQuestions(count);
     }
 
     return (

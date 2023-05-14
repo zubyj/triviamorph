@@ -1,11 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';  // <-- import useNavigation
 
 import HeaderText from '../components/HeaderText';
 import trophy from '../../assets/images/trophy.gif';
 
+
 export default function ResultsScreen({ score, numQuestions, resetGameState }) {
+    const navigation = useNavigation();  // <-- define navigation here
+
     const percentage = (score / numQuestions) * 100;
     const percentColor = percentage === 100 ? '#00ff00' :
         percentage >= 75 ? '#4caf50' :
@@ -17,7 +21,7 @@ export default function ResultsScreen({ score, numQuestions, resetGameState }) {
             <Button
                 mode="outlined"
                 textColor="#fff"
-                onPress={resetGameState}
+                onPress={() => navigation.navigate('Main')}  // <-- use navigation here
                 style={styles.homeButton}
             >
                 Return Home
@@ -30,7 +34,6 @@ export default function ResultsScreen({ score, numQuestions, resetGameState }) {
         </View >
     )
 }
-
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
