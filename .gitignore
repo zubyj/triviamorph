@@ -1,6 +1,8 @@
 # Custom gitignores
 .expo
 eas.json
+.DS_Store
+
 
 # Logs
 logs
