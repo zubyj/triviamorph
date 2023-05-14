@@ -1,36 +1,24 @@
 # Privacy Policy
 
-## Face Data Collection
+## Data collected
 
-The user must upload an image of their face for the app to work. 
+- We temporarily store the image uploaded by the user for the morpher to function.
 
-The uploaded image is temporarily stored on our server to morph the image. 
+-  The final morphed image is also stored on the server so the image can be displayed in the game. 
 
-The final morphed image is also temporarily stored on our server to display to users. 
+-  Both the uploaded image and the morphed image are periodically deleted (every 24 hours) from the server.
 
-After 24 hours, both the image uploaded by the user and the final morphed image are deleted from the server. 
+-  This is to protect the privacy of the users. 
 
-This is to protect the privacy of our users.
+## Third-party data sharing
 
-## Data shared with third parties
+- Images (uploaded and morphed) are never shared with any third parties whatsoever. 
 
-Firebase Analytics is the only third-party tool used to track the number of images uploaded by the user. 
+- The only third party data app used is Firebase Analytics which is used on our server to simply track the number of upload & morph requests. Nothing else is collected.
 
-No additional information is tracked. 
+## Security
 
-All communication with the app and website requires HTTPS with certificate pinning. 
-
-Our server software may also store basic technical information, such as your IP address, in temporary memory or logs.
-
-## Data retention and deletion policies
-
-The retention period for face data is 24 hours. 
-
-After this period, your face data is permanently deleted from our servers. 
-
-You can also request to delete your data before the retention period is up. 
-
-To achieve this, contact us below.
+- To request to delete your uploaded and/or morphed image before the 24 hour rentention period, our contact information is listed below.
 
 ## Contact Us
 
