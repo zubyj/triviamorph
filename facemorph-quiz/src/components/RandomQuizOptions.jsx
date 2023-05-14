@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'green',
     },
     incorrectButton: {
-        borderColor: 'red',
+        backgroundColor: 'red',
     },
     unselectedCorrectButton: {
         backgroundColor: 'green',
