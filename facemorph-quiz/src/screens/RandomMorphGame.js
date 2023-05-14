@@ -17,6 +17,7 @@ export default function RandomMorphGame({ route }) {
     const [isLoading, setIsLoading] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const [questionCount, setQuestionCount] = useState(0);
     const [score, setScore] = useState(0);
@@ -45,7 +46,10 @@ export default function RandomMorphGame({ route }) {
         }
     };
 
+
     const handleSubmit = () => {
+        setIsSubmitted(true);
+
         if (selectedOptions.every(option => selectedMorph.compositeImage.components.some(component => component.slug === option))) {
             setScore(score + 1);
             setIsCorrect(true);
@@ -95,6 +99,8 @@ export default function RandomMorphGame({ route }) {
                     <Image style={styles.image} source={selectedMorph.compositeImage.filename} />
                     <QuizOptions
                         options={options}
+                        selectedMorph={selectedMorph}
+                        isSubmitted={isSubmitted}
                         handleButtonClick={handleOptionSelect}
                         isCorrect={isCorrect}
                         selectedOptions={selectedOptions}

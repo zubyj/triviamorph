@@ -1,19 +1,29 @@
+//RandomQuizOptions.js
+
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 
-const RandomQuizOptions = ({ options, handleButtonClick, selectedOptions, setSelectedOptions }) => {
+const RandomQuizOptions = ({ options, handleButtonClick, selectedOptions, setSelectedOptions, selectedMorph, isSubmitted }) => {
 
     const handleButtonPress = (option) => {
-        if (selectedOptions.includes(option.slug)) {
-            setSelectedOptions(selectedOptions.filter(slug => slug !== option.slug));
-        } else if (selectedOptions.length < 2) {
-            setSelectedOptions([...selectedOptions, option.slug]);
+        if (!isSubmitted) {
+            if (selectedOptions.includes(option.slug)) {
+                setSelectedOptions(selectedOptions.filter(slug => slug !== option.slug));
+            } else if (selectedOptions.length < 2) {
+                setSelectedOptions([...selectedOptions, option.slug]);
+            }
         }
     };
 
     const getButtonStyle = (option) => {
-        if (selectedOptions.includes(option)) {
+        if (isSubmitted) {
+            if (selectedMorph.compositeImage.components.some(component => component.slug === option.slug)) {
+                return selectedOptions.includes(option.slug) ? styles.correctButton : styles.unselectedCorrectButton;
+            } else if (selectedOptions.includes(option.slug)) {
+                return styles.incorrectButton;
+            }
+        } else if (selectedOptions.includes(option.slug)) {
             return styles.selectedButton;
         }
         return null;
@@ -26,7 +36,7 @@ const RandomQuizOptions = ({ options, handleButtonClick, selectedOptions, setSel
                     key={index}
                     mode="outlined"
                     textColor='#fff'
-                    style={[styles.quizButton, getButtonStyle(option.slug)]}
+                    style={[styles.quizButton, getButtonStyle(option)]}
                     onPress={() => handleButtonPress(option)}
                 >
                     <Text style={styles.text}>
@@ -51,6 +61,15 @@ const styles = StyleSheet.create({
         width: '45%',
     },
     selectedButton: {
+        backgroundColor: '#6750a4',
+    },
+    correctButton: {
+        backgroundColor: 'green',
+    },
+    incorrectButton: {
+        borderColor: 'red',
+    },
+    unselectedCorrectButton: {
         backgroundColor: 'green',
     },
     text: {
