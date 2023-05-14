@@ -105,7 +105,7 @@ export default function RandomMorphGame({ route }) {
                         selectedOptions={selectedOptions}
                         setSelectedOptions={setSelectedOptions}
                     />
-                    <Button onPress={handleSubmit} mode="outlined" textColor='#FFD700' style={styles.submitButton}>Submit</Button>
+                    <Button onPress={handleSubmit} mode="outlined" textColor={'#8AFF8A'} style={styles.submitButton}>Submit</Button>
                 </>
             )
         }
