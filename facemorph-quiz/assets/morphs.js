@@ -260,6 +260,126 @@ export default [
             "Thomas Jefferson",
             "Diego Rivera"
         ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/abraham-picasso.jpeg"),
+            "components": [
+                {
+                    "name": "Abraham Lincoln",
+                    "slug": "abraham-lincoln"
+                },
+                {
+                    "name": "Pablo Picasso",
+                    "slug": "pablo-picasso"
+                }
+            ]
+        },
+        "related": [
+            "George Washington",
+            "Vincent van Gogh",
+            "Leonardo da Vinci"
+        ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/diana-franklin.jpeg"),
+            "components": [
+                {
+                    "name": "Princess Diana",
+                    "slug": "princess-diana"
+                },
+                {
+                    "name": "Benjamin Franklin",
+                    "slug": "benjamin-franklin"
+                }
+            ]
+        },
+        "related": [
+            "George Washington",
+            "Queen Elizabeth II",
+            "Thomas Jefferson"
+        ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/diana-frida.jpeg"),
+            "components": [
+                {
+                    "name": "Princess Diana",
+                    "slug": "princess-diana"
+                },
+                {
+                    "name": "Frida Kahlo",
+                    "slug": "frida-kahlo"
+                }
+            ]
+        },
+        "related": [
+            "Queen Elizabeth II",
+            "Diego Rivera",
+            "Salvador Dalí"
+        ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/diana-lincoln.jpeg"),
+            "components": [
+                {
+                    "name": "Princess Diana",
+                    "slug": "princess-diana"
+                },
+                {
+                    "name": "Abraham Lincoln",
+                    "slug": "abraham-lincoln"
+                }
+            ]
+        },
+        "related": [
+            "Queen Elizabeth II",
+            "George Washington",
+            "John F. Kennedy"
+        ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/picasso-einstein.jpeg"),
+            "components": [
+                {
+                    "name": "Pablo Picasso",
+                    "slug": "pablo-picasso"
+                },
+                {
+                    "name": "Albert Einstein",
+                    "slug": "albert-einstein"
+                }
+            ]
+        },
+        "related": [
+            "Salvador Dalí",
+            "Isaac Newton",
+            "Leonardo da Vinci"
+        ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/picasso-elvis.jpeg"),
+            "components": [
+                {
+                    "name": "Pablo Picasso",
+                    "slug": "pablo-picasso"
+                },
+                {
+                    "name": "Elvis Presley",
+                    "slug": "elvis-presley"
+                }
+            ]
+        },
+        "related": [
+            "Salvador Dalí",
+            "John Lennon",
+            "Michael Jackson"
+        ]
     }
 ];
 
