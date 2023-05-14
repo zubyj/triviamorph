@@ -41,7 +41,8 @@ export default function MainScreen({ navigation }) {
                 Morph your face
             </Button>
             <Button
-                mode="outlined"
+                mode="filled"
+                buttonColor='#05a95c'
                 icon="play"
                 onPress={navigateToGame}
                 textColor='#fff'

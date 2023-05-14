@@ -4,7 +4,7 @@ import { Button } from 'react-native-paper'
 
 import LoadingScreen from './LoadingScreen';
 import ResultsScreen from './ResultsScreen';
-import QuizOptions from '../components/QuizOptions';
+import QuizOptions from '../components/RandomQuizOptions';
 import HeaderText from '../components/HeaderText';
 import { generateMorphOptions } from '../utils/randomMorph';
 import morphs from '../../assets/morphs';
@@ -16,7 +16,7 @@ export default function RandomMorphGame({ route }) {
     const [selectedMorph, setSelectedMorph] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
-    const [selectedOptions, setSelectedOptions] = useState([]); // New state for selected options
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
     const [questionCount, setQuestionCount] = useState(0);
     const [score, setScore] = useState(0);
@@ -47,7 +47,7 @@ export default function RandomMorphGame({ route }) {
 
     const handleSubmit = () => {
         if (selectedOptions.every(option => selectedMorph.compositeImage.components.some(component => component.slug === option))) {
-            setScore(score + 2);
+            setScore(score + 1);
             setIsCorrect(true);
         }
 
@@ -93,7 +93,13 @@ export default function RandomMorphGame({ route }) {
                     <HeaderText text={`Question ${questionCount + 1} / ${numQuestions}`} />
                     <HeaderText text={`Score: ${score}`} />
                     <Image style={styles.image} source={selectedMorph.compositeImage.filename} />
-                    <QuizOptions options={options} handleButtonClick={handleOptionSelect} isCorrect={isCorrect} selectedOptions={selectedOptions} />
+                    <QuizOptions
+                        options={options}
+                        handleButtonClick={handleOptionSelect}
+                        isCorrect={isCorrect}
+                        selectedOptions={selectedOptions}
+                        setSelectedOptions={setSelectedOptions}
+                    />
                     <Button onPress={handleSubmit} mode="outlined" textColor='#FFD700' style={styles.submitButton}>Submit</Button>
                 </>
             )

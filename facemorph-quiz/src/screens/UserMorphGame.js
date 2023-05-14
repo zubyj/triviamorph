@@ -14,7 +14,7 @@ export default function UserMorphGame({ route }) {
 
     const [imageUrl, setImageUrl] = useState('');
     const [morphUri, setMorphUri] = useState('');
-    const [randomImage, setRandomImage] = useState(''); // random image object from people.json
+    const [randomImage, setRandomImage] = useState('');
 
     const [isLoading, setIsLoading] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
