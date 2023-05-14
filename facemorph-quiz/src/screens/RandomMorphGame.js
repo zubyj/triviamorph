@@ -33,8 +33,6 @@ export default function RandomMorphGame({ route }) {
     useEffect(() => {
         if (questionCount === 0) {
             let randomIndex = Math.floor(Math.random() * morphs.length);
-            console.log('Random index:', randomIndex);
-            console.log('Morph at random index:', morphs[randomIndex]);
             setSelectedMorph(morphs[randomIndex]);
             setIsLoading(false);
         }

@@ -81,7 +81,6 @@ const UploadImageButton = ({ setImageUrl }) => {
             }
 
             const resJson = await response.json();
-            console.log('Image upload success');
             setIsValid(true);
             return resJson;
         } catch (error) {
