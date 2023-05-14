@@ -20,6 +20,8 @@
 
 - To request to delete your uploaded and/or morphed image before the 24 hour rentention period, our contact information is listed below.
 
+- By using our app, you consent to our privacy policy.
+
 ## Contact Us
 
 If you have any questions or suggestions about our Privacy Policy, please do not hesitate to contact us at zubydevelops@gmail.com.
