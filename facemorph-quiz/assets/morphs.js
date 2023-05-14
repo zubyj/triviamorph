@@ -118,6 +118,148 @@ export default [
             "Malcolm X",
             "Nelson Mandela"
         ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/diana-gandhi.jpeg"),
+            "components": [
+                {
+                    "name": "Princess Diana",
+                    "slug": "princess-diana"
+                },
+                {
+                    "name": "Mahatma Gandhi",
+                    "slug": "mahatma-gandhi"
+                }
+            ]
+        },
+        "related": [
+            "Mother Teresa",
+            "Queen Elizabeth II",
+            "Winston Churchill"
+        ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/einstein-frida.jpeg"),
+            "components": [
+                {
+                    "name": "Albert Einstein",
+                    "slug": "albert-einstein"
+                },
+                {
+                    "name": "Frida Kahlo",
+                    "slug": "frida-kahlo"
+                }
+            ]
+        },
+        "related": [
+            "Pablo Picasso",
+            "Salvador Dalí",
+            "Marie Curie"
+        ]
+    },
+    {
+
+
+        "compositeImage": {
+            "filename": require("./images/morphed-images/frida-jfk.jpeg"),
+            "components": [
+                {
+                    "name": "Frida Kahlo",
+                    "slug": "frida-kahlo"
+                },
+                {
+                    "name": "John F. Kennedy",
+                    "slug": "john-f-kennedy"
+                }
+            ]
+        },
+        "related": [
+            "Jacqueline Kennedy Onassis",
+            "Pablo Picasso",
+            "Che Guevara"
+        ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/gandhi-benjamin-franklin.jpeg"),
+            "components": [
+                {
+                    "name": "Mahatma Gandhi",
+                    "slug": "mahatma-gandhi"
+                },
+                {
+                    "name": "Benjamin Franklin",
+                    "slug": "benjamin-franklin"
+                }
+            ]
+        },
+        "related": [
+            "George Washington",
+            "Winston Churchill",
+            "Abraham Lincoln"
+        ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/gandhi-washington.jpeg"),
+            "components": [
+                {
+                    "name": "Mahatma Gandhi",
+                    "slug": "mahatma-gandhi"
+                },
+                {
+                    "name": "George Washington",
+                    "slug": "george-washington"
+                }
+            ]
+        },
+        "related": [
+            "Thomas Jefferson",
+            "Benjamin Franklin",
+            "John Adams"
+        ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/picasso-frida.jpeg"),
+            "components": [
+                {
+                    "name": "Pablo Picasso",
+                    "slug": "pablo-picasso"
+                },
+                {
+                    "name": "Frida Kahlo",
+                    "slug": "frida-kahlo"
+                }
+            ]
+        },
+        "related": [
+            "Salvador Dalí",
+            "Diego Rivera",
+            "Leonardo da Vinci"
+        ]
+    },
+    {
+        "compositeImage": {
+            "filename": require("./images/morphed-images/washington-frida.jpeg"),
+            "components": [
+                {
+                    "name": "George Washington",
+                    "slug": "george-washington"
+                },
+                {
+                    "name": "Frida Kahlo",
+                    "slug": "frida-kahlo"
+                }
+            ]
+        },
+        "related": [
+            "Abraham Lincoln",
+            "Thomas Jefferson",
+            "Diego Rivera"
+        ]
     }
 ];
 
