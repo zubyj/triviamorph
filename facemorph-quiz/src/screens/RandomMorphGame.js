@@ -51,7 +51,6 @@ export default function RandomMorphGame({ route }) {
             return;
         }
 
-
         setIsSubmitted(true);
 
         if (selectedOptions.every(option => selectedMorph.compositeImage.components.some(component => component.slug === option))) {
@@ -111,7 +110,13 @@ export default function RandomMorphGame({ route }) {
                         selectedOptions={selectedOptions}
                         setSelectedOptions={setSelectedOptions}
                     />
-                    <Button onPress={handleSubmit} mode="outlined" textColor={'#8AFF8A'} style={styles.submitButton}>Submit</Button>
+                    <Button
+                        onPress={handleSubmit}
+                        mode='outlined'
+                        textColor={selectedOptions.length == 2 ? '#8AFF8A' : 'white'}
+                        style={styles.submitButton}
+                    >
+                        Submit</Button >
                 </>
             )
         }
@@ -139,6 +144,8 @@ const styles = StyleSheet.create({
         borderColor: '#fff',
         borderRadius: 20,
         overflow: 'hidden',
+    },
+    disabledSubmitButton: {
     },
     submitButton: {
         width: 200,
