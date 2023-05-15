@@ -1,7 +1,10 @@
 import { Image } from 'react-native';
 import { Asset } from 'expo-asset';
 import * as FileSystem from 'expo-file-system';
-import { AUTH_HEADER, UPLOAD_ENDPOINT, MORPH_ENDPOINT } from '@env';
+
+const UPLOAD_ENDPOINT = 'https://pyaar.ai/morph/upload'
+const MORPH_ENDPOINT = 'https://pyaar.ai/morph'
+const AUTH_HEADER = 'ImageMorpherV1'
 
 import people from '../../assets/people.json';
 

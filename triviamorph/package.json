@@ -1,6 +1,6 @@
 {
   "name": "TriviaMorph",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -17,15 +17,10 @@
     "expo-file-system": "^15.2.2",
     "expo-image-picker": "~14.1.1",
     "react": "18.2.0",
-    "react-native": "^0.71.7",
+    "react-native": "0.71.7",
     "react-native-paper": "^5.7.2",
     "react-native-typewriter": "^0.7.0",
     "react-native-vector-icons": "^9.2.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "babel-plugin-module-resolver": "^5.0.0",
-    "react-native-dotenv": "^3.4.8"
   },
   "private": true
 }

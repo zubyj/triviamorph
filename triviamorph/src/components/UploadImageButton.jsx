@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import { UPLOAD_ENDPOINT, AUTH_HEADER } from "@env"
 
 const UploadImageButton = ({ setImageUrl }) => {
+
+    const UPLOAD_ENDPOINT = 'https://pyaar.ai/morph/upload'
+    const MORPH_ENDPOINT = 'https://pyaar.ai/morph'
+    const AUTH_HEADER = 'ImageMorpherV1'
 
     const uploadIcon = require('../../assets/icons/upload-img.png');
     const invalidIcon = require('../../assets/icons/invalid-img.png');
