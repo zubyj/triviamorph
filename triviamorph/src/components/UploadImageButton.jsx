@@ -61,16 +61,13 @@ const UploadImageButton = ({ setImageUrl }) => {
 
     const uploadImage = async (img) => {
         try {
-            const uploadUrl = UPLOAD_ENDPOINT;
-            const authHeader = AUTH_HEADER;
-
             const data = new FormData();
             data.append('firstImageRef', img);
             data.append('clientId', 'FaceMorphQuiz')
-            const response = await fetch(uploadUrl, {
+            const response = await fetch(UPLOAD_ENDPOINT, {
                 method: 'POST',
                 headers: {
-                    Authorization: authHeader,
+                    Authorization: AUTH_HEADER,
                 },
                 body: data,
             });
