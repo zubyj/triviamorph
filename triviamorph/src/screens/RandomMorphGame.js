@@ -11,7 +11,7 @@ import morphs from '../../assets/morphs';
 
 export default function RandomMorphGame({ route }) {
 
-    const numQuestions = route.params.numQuestions;
+    const { numQuestions } = route.params;
 
     const [selectedMorph, setSelectedMorph] = useState({});
     const [isLoading, setIsLoading] = useState(false);

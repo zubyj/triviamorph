@@ -10,7 +10,7 @@ import { generateOptions, getMorph } from '../utils/utils';
 
 export default function UserMorphGame({ route }) {
 
-    const numQuestions = route.params.numQuestions
+    const { numQuestions } = route.params;
 
     const [imageUrl, setImageUrl] = useState('');
     const [morphUri, setMorphUri] = useState('');
