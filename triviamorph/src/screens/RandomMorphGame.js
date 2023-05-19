@@ -115,6 +115,7 @@ export default function RandomMorphGame({ route }) {
                         mode='outlined'
                         textColor={selectedOptions.length == 2 ? '#8AFF8A' : 'white'}
                         style={styles.submitButton}
+                        disabled={isSubmitted}
                     >
                         Submit</Button >
                 </>
