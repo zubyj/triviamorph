@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
+import { View, StyleSheet, Image } from 'react-native';
 import TypeWriter from 'react-native-typewriter';
 
 const LoadingScreen = ({ text }) => {
     return (
         <View style={styles.container}>
-            <ActivityIndicator size="large" color="#fff" />
             <TypeWriter typing={1} style={styles.loadingText} repeat={true}>{text}</TypeWriter>
+            <Image source={require('../../assets/images/cube-300w.gif')} accessibilityLabel="cube" />
         </View>
     );
 };
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     loadingText: {
-        fontSize: 15,
+        fontSize: 20,
         padding: 20,
         color: '#fff',
     },

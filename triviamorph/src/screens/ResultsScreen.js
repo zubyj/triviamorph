@@ -21,7 +21,7 @@ export default function ResultsScreen({ score, numQuestions, resetGameState }) {
             <Button
                 mode="outlined"
                 textColor="#fff"
-                onPress={() => navigation.navigate('Main')}  // <-- use navigation here
+                onPress={() => navigation.navigate('Home')}  // <-- use navigation here
                 style={styles.homeButton}
             >
                 Return Home

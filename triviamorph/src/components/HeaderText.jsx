@@ -9,9 +9,9 @@ export default function HeaderText({ text }) {
 
 const styles = StyleSheet.create({
     headerText: {
-        marginTop: 15,
         fontSize: 20,
         color: '#fff',
-        marginBottom: 10,
+        marginTop: 15,
+        marginBottom: 15,
     },
 });
