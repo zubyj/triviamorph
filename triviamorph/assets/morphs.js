@@ -27,7 +27,7 @@ export default [
             }
         ],
         "wrongOptions": [
-            "Frida Kahlo",
+            "Queen Elizabeth",
             "Amelia Earhart",
             "Audrey Hepburn",
         ]

@@ -4,7 +4,6 @@ import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 import HeaderText from '../components/HeaderText';
-import trophy from '../../assets/images/trophy.gif';
 import sadPepe from '../../assets/images/sad-pepe.gif';
 import congrats from '../../assets/images/congrats.gif';
 

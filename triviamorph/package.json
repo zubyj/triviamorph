@@ -15,8 +15,6 @@
     "expo-asset": "^8.9.1",
     "expo-file-system": "^15.2.2",
     "expo-image-picker": "~14.1.1",
-    "i": "^0.3.7",
-    "npm": "^9.6.7",
     "react": "18.2.0",
     "react-native": "0.71.8",
     "react-native-paper": "^5.7.2",
