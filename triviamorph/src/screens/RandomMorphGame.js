@@ -4,72 +4,107 @@ import { Button } from 'react-native-paper'
 
 import LoadingScreen from './LoadingScreen';
 import ResultsScreen from './ResultsScreen';
-import QuizOptions from '../components/RandomQuizOptions';
 import HeaderText from '../components/HeaderText';
-import { generateMorphOptions } from '../utils/randomMorph';
+
 import morphs from '../../assets/morphs';
 
 export default function RandomMorphGame({ route }) {
 
     const { numQuestions } = route.params;
 
-    const [selectedMorph, setSelectedMorph] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
-    const [selectedOptions, setSelectedOptions] = useState([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
-
-    const [questionCount, setQuestionCount] = useState(0);
+    const [questionNum, setQuestionNum] = useState(0);
     const [score, setScore] = useState(0);
+
     const [options, setOptions] = useState([]);
+    const [selected, setSelected] = useState([]);
+    const [correctOptions, setCorrectOptions] = useState([]);
+    const [image, setImage] = useState('');
 
     useEffect(() => {
-        if (selectedMorph.compositeImage) {
-            const optionsArray = generateMorphOptions(selectedMorph);
-            setOptions(optionsArray);
+        if (questionNum === 0) {
+            generateMorphOptions();
         }
-    }, [selectedMorph]);
+    }, [questionNum]);
 
-    useEffect(() => {
-        if (questionCount === 0) {
-            let randomIndex = Math.floor(Math.random() * morphs.length);
-            setSelectedMorph(morphs[randomIndex]);
-            setIsLoading(false);
+    const generateMorphOptions = () => {
+        let randomIndex = Math.floor(Math.random() * morphs.length);
+        let option = morphs[randomIndex];
+
+        let person1 = {
+            name: option.name,
+            slug: option.slug
         }
-    }, [questionCount]);
 
-    const handleOptionSelect = (selectedOption) => {
-        if (selectedOptions.length < 2) {
-            setSelectedOptions([...selectedOptions, selectedOption]);
+        let randomImageIndex = Math.floor(Math.random() * option.morphs.length);
+        let randomImage = option.morphs[randomImageIndex];
+        let filename = randomImage.filename;
+        setImage(filename);
+
+        let person2 = {
+            name: randomImage.name,
+            slug: randomImage.slug
         }
-    };
 
+        // Save the correct options
+        setCorrectOptions([person1.name, person2.name]);
+
+        const wrongOptions = option.wrongOptions;
+        const randomIndex1 = Math.floor(Math.random() * wrongOptions.length);
+        let randomIndex2 = Math.floor(Math.random() * wrongOptions.length);
+        while (randomIndex1 === randomIndex2) {
+            randomIndex2 = Math.floor(Math.random() * wrongOptions.length);
+        }
+
+        const wrongOption1 = wrongOptions[randomIndex1];
+        const wrongOption2 = wrongOptions[randomIndex2];
+
+        // Combine the correct and wrong options
+        const combinedOptions = [person1.name, person2.name, wrongOption1, wrongOption2];
+
+        // Shuffle the options
+        const shuffledOptions = combinedOptions.sort(() => Math.random() - 0.5);
+
+        setOptions(shuffledOptions);
+    }
+
+    const handleOptionClick = (option) => {
+        if (selected.includes(option)) {
+            setSelected(selected.filter(item => item !== option));
+        }
+        else if (selected.length < 2) {
+            setSelected([...selected, option]);
+        }
+    }
 
     const handleSubmit = () => {
-        if (selectedOptions.length < 2) {
+        if (selected.length < 2) {
             alert('Please select two options');
             return;
         }
 
         setIsSubmitted(true);
 
-        if (selectedOptions.every(option => selectedMorph.compositeImage.components.some(component => component.slug === option))) {
+        // Check if the selected options are correct
+        if (selected.every(option => correctOptions.includes(option))) {
             setScore(score + 1);
             setIsCorrect(true);
+        } else {
+            setIsCorrect(false);
         }
 
-        if (questionCount < numQuestions) {
-            setTimeout(() => {
-                setQuestionCount(questionCount + 1);
-                setIsCorrect(false);
-                setSelectedMorph({});
-                setIsSubmitted(false);
-                setSelectedOptions([]); // Reset selected options
-                let randomIndex = Math.floor(Math.random() * morphs.length);
-                setSelectedMorph(morphs[randomIndex]);
-            }, 2000); // Set a delay before moving to the next question
-        }
+        setTimeout(nextQuestion, 2000);
     };
+
+    const nextQuestion = () => {
+        generateMorphOptions();
+        setQuestionNum(questionNum + 1);
+        setSelected([]);
+        setIsCorrect(false);
+        setIsSubmitted(false);
+    }
 
     const resetGameState = () => {
         setSelectedMorph({});
@@ -82,7 +117,7 @@ export default function RandomMorphGame({ route }) {
     }
 
     const getScreen = () => {
-        if (questionCount >= numQuestions) {
+        if (questionNum >= numQuestions) {
             return (
                 <ResultsScreen
                     score={score}
@@ -92,35 +127,50 @@ export default function RandomMorphGame({ route }) {
         }
         if (isLoading) {
             return (
-                <LoadingScreen text={`Creating Question ${questionCount + 1} ...`} />
+                <LoadingScreen text={`Creating Question ${questionNum + 1} ...`} />
             )
         }
-        if (selectedMorph.compositeImage) {
-            return (
-                <>
-                    <HeaderText text={`Question ${questionCount + 1} / ${numQuestions}`} />
-                    <HeaderText text={`Score: ${score}`} />
-                    <Image style={styles.image} source={selectedMorph.compositeImage.filename} />
-                    <QuizOptions
-                        options={options}
-                        selectedMorph={selectedMorph}
-                        isSubmitted={isSubmitted}
-                        handleButtonClick={handleOptionSelect}
-                        isCorrect={isCorrect}
-                        selectedOptions={selectedOptions}
-                        setSelectedOptions={setSelectedOptions}
-                    />
-                    <Button
-                        onPress={handleSubmit}
-                        mode='outlined'
-                        textColor={selectedOptions.length == 2 ? '#8AFF8A' : 'white'}
-                        style={styles.submitButton}
-                        disabled={isSubmitted}
-                    >
-                        Submit</Button >
-                </>
-            )
-        }
+        return (
+            <>
+                <HeaderText text={`Question ${questionNum + 1} / ${numQuestions}`} />
+                <HeaderText text={`Score: ${score}`} />
+                <Image source={image} style={styles.image} />
+                <View style={styles.buttonsContainer}>
+                    {options.map(option => (
+                        <Button
+                            key={option}
+                            onPress={() => handleOptionClick(option)}
+                            mode='outlined'
+                            style={styles.quizButton}
+                            textColor={'white'}
+                            buttonColor={
+                                isSubmitted
+                                    ? correctOptions.includes(option)
+                                        ? 'green'
+                                        : selected.includes(option)
+                                            ? 'red'
+                                            : '#222'
+                                    : selected.includes(option)
+                                        ? '#6750a4'
+                                        : '#222'
+                            }                        >
+                            {option}
+                        </Button>
+                    ))}
+                </View >
+                <Button
+                    onPress={handleSubmit}
+                    mode='outlined'
+                    borderRadius={10}
+                    textColor={'white'}
+                    buttonColor={selected.length == 2 && 'green'}
+                    style={styles.submitButton}
+                    disabled={isSubmitted}
+                >
+                    Submit
+                </Button >
+            </>
+        )
     }
     return (
         <View style={styles.container}>
@@ -145,6 +195,16 @@ const styles = StyleSheet.create({
         borderColor: '#fff',
         borderRadius: 20,
         overflow: 'hidden',
+    },
+    buttonsContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+    },
+    quizButton: {
+        margin: 5,
+        borderRadius: 5,
+        width: '45%',
     },
     disabledSubmitButton: {
     },
