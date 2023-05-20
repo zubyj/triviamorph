@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Button } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';  // <-- import useNavigation
+import { useNavigation } from '@react-navigation/native';
 
 import HeaderText from '../components/HeaderText';
 import trophy from '../../assets/images/trophy.gif';
-
+import sadPepe from '../../assets/images/sad-pepe.gif';
+import congrats from '../../assets/images/congrats.gif';
 
 export default function ResultsScreen({ score, numQuestions, resetGameState }) {
-    const navigation = useNavigation();  // <-- define navigation here
+    const navigation = useNavigation();
 
     const percentage = (score / numQuestions) * 100;
     const percentColor = percentage === 100 ? '#00ff00' :
@@ -21,16 +22,16 @@ export default function ResultsScreen({ score, numQuestions, resetGameState }) {
             <Button
                 mode="outlined"
                 textColor="#fff"
-                onPress={() => navigation.navigate('Home')}  // <-- use navigation here
+                onPress={() => navigation.navigate('Home')}
                 style={styles.homeButton}
             >
                 Return Home
             </Button>
-            <HeaderText text={`Final Score: ${score} / ${numQuestions}`} />
+            <HeaderText text={`Final Score`} />
             <Text style={[styles.text, styles.percentScore, { color: percentColor }]}>
                 {percentage.toFixed(0)}%
             </Text>
-            <Image source={trophy} style={styles.image} />
+            <Image source={percentage < 60 ? sadPepe : congrats} style={styles.image} />
         </View >
     )
 }
@@ -49,5 +50,6 @@ const styles = StyleSheet.create({
     },
     percentScore: {
         fontSize: 50,
+        marginBottom: 30,
     },
 });

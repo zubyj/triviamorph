@@ -3,7 +3,6 @@ import { View, StyleSheet, Image } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import QuestionCountSelector from '../components/QuestionCountSelector';
-import HeaderText from '../components/HeaderText';
 
 export default function HomeScreen({ navigation }) {
 
@@ -17,7 +16,6 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <Image source={require('../../assets/images/title.png')} style={styles.logoText} accessibilityLabel="logo text" />
-            <HeaderText text="Select the game" />
             <Button
                 mode={selectedGame === 'UserMorph' ? "contained" : "outlined"}
                 icon="camera"
