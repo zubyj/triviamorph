@@ -128,4 +128,4 @@ async function checkImageAvailability(uri) {
         .catch(() => false);
 }
 
-export { getRandomImage, generateOptions, checkImageAvailability, getMorph };
+export { getRandomImage, generateOptions, checkImageAvailability, getMorph, uploadImage };

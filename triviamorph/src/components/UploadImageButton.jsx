@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import { AUTH_HEADER, UPLOAD_ENDPOINT } from "@env";
+import { uploadImage } from '../utils/api';
 
 const UploadImageButton = ({ setImageUrl }) => {
-
 
     const uploadIcon = require('../../assets/icons/upload-img.png');
     const invalidIcon = require('../../assets/icons/invalid-img.png');
@@ -60,34 +59,7 @@ const UploadImageButton = ({ setImageUrl }) => {
         return userImage;
     };
 
-    const uploadImage = async (img) => {
-        try {
-            const data = new FormData();
-            data.append('firstImageRef', img);
-            data.append('clientId', 'FaceMorphQuiz')
-            const response = await fetch(UPLOAD_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    Authorization: AUTH_HEADER,
-                },
-                body: data,
-            });
 
-            if (!response.ok) {
-                setIsValid(false);
-                throw response;
-            }
-
-            const resJson = await response.json();
-            setIsValid(true);
-            return resJson;
-        } catch (error) {
-            console.log('Image upload failed');
-            console.log(error);
-            console.log(JSON.stringify(error));
-            setIsValid(false);
-        }
-    };
 
     const saveImage = async (uri) => {
         const fileName = uri.split('/').pop();

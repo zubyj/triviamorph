@@ -6,7 +6,7 @@ import ResultsScreen from './ResultsScreen';
 import UploadImageButton from '../components/UploadImageButton';
 import QuizOptions from '../components/QuizOptions';
 import HeaderText from '../components/HeaderText';
-import { generateOptions, getMorph } from '../utils/utils';
+import { generateOptions, getMorph } from '../utils/api';
 
 export default function UserMorphGame({ route }) {
 
