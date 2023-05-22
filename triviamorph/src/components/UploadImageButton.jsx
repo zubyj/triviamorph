@@ -48,15 +48,22 @@ const UploadImageButton = ({ setImageUrl }) => {
 
         let userImage = null;
 
-        if (selectedImage.base64) {
-            userImage = await uploadImage(selectedImage.base64, true);
-        } else if (selectedImage.uri) {
-            userImage = await uploadImage(selectedImage.uri, true);
+        try {
+
+            if (selectedImage.base64) {
+                userImage = await uploadImage(selectedImage.base64, true);
+            } else if (selectedImage.uri) {
+                userImage = await uploadImage(selectedImage.uri, true);
+            }
+            saveImage(uri);
+            setIsValid(true);
+            return userImage;
         }
-
-        saveImage(uri);
-
-        return userImage;
+        catch (error) {
+            console.log(error);
+            setIsValid(false);
+            return null;
+        }
     };
 
 

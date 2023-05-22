@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { Button } from 'react-native-paper'
-
-import LoadingScreen from './LoadingScreen';
 import ResultsScreen from './ResultsScreen';
 import HeaderText from '../components/HeaderText';
 
@@ -12,7 +10,6 @@ export default function RandomMorphGame({ route }) {
 
     const { numQuestions } = route.params;
 
-    const [isLoading, setIsLoading] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [questionNum, setQuestionNum] = useState(0);
@@ -125,16 +122,11 @@ export default function RandomMorphGame({ route }) {
                     resetGameState={resetGameState} />
             )
         }
-        if (isLoading) {
-            return (
-                <LoadingScreen text={`Creating Question ${questionNum + 1} ...`} />
-            )
-        }
         return (
             <>
                 <HeaderText text={`Question ${questionNum + 1} / ${numQuestions}`} />
                 <HeaderText text={`Score: ${score}`} />
-                <Image source={image} style={styles.image} />
+                {image && <Image source={image} style={styles.image} />}
                 <View style={styles.buttonsContainer}>
                     {options.map(option => (
                         <Button

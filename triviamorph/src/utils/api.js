@@ -57,7 +57,8 @@ const uploadImage = async (img) => {
         });
 
         if (!response.ok) {
-            await console.log(response.json());
+            const errorResponse = await response.json();
+            console.log('Image upload failed with response:', errorResponse);
             throw new Error('Random image upload failed');
         }
 
@@ -65,8 +66,11 @@ const uploadImage = async (img) => {
         return resJson;
     } catch (error) {
         console.error('Random img upload failed', error);
+        throw error; // Rethrow the error to be caught by the caller
     }
 };
+
+
 
 const generateOptions = (randomImage) => {
     let numOptions = 3;
