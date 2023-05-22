@@ -12,7 +12,9 @@ export default function UserMorphGame({ route }) {
 
     const { numQuestions } = route.params;
 
+
     const [imageUrl, setImageUrl] = useState('');
+    const [isValidUpload, setIsValidUpload] = useState(true);
     const [morphUri, setMorphUri] = useState('');
     const [randomImage, setRandomImage] = useState('');
 
@@ -90,9 +92,10 @@ export default function UserMorphGame({ route }) {
         if (!imageUrl) {
             return (
                 <>
-                    <HeaderText text="Upload a face to begin" />
+                    <HeaderText text={isValidUpload ? 'Upload a face to begin' : 'Please upload another face'} />
                     <UploadImageButton
                         setImageUrl={setImageUrl}
+                        setIsValid={setIsValidUpload}
                     />
                 </>
             )

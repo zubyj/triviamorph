@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+
+import HeaderText from './HeaderText';
 import { uploadImage } from '../utils/api';
 
-const UploadImageButton = ({ setImageUrl }) => {
+const UploadImageButton = ({ setImageUrl, setIsValid }) => {
 
     const uploadIcon = require('../../assets/icons/upload-img.png');
     const invalidIcon = require('../../assets/icons/invalid-img.png');
+    const successIcon = require('../../assets/icons/success-img.png');
 
-    const [isValid, setIsValid] = useState(true);
+    const [iconSource, setIconSource] = useState(uploadIcon);
 
     const pickImage = async () => {
         try {
@@ -55,6 +58,7 @@ const UploadImageButton = ({ setImageUrl }) => {
             } else if (selectedImage.uri) {
                 userImage = await uploadImage(selectedImage.uri, true);
             }
+            setIconSource(successIcon);
             saveImage(uri);
             setIsValid(true);
             return userImage;
@@ -62,11 +66,10 @@ const UploadImageButton = ({ setImageUrl }) => {
         catch (error) {
             console.log(error);
             setIsValid(false);
+            setIconSource(invalidIcon);
             return null;
         }
     };
-
-
 
     const saveImage = async (uri) => {
         const fileName = uri.split('/').pop();
@@ -82,11 +85,13 @@ const UploadImageButton = ({ setImageUrl }) => {
     };
 
     return (
-        <TouchableOpacity
-            onPress={pickImage}
-        >
-            <Image source={isValid ? uploadIcon : invalidIcon} />
-        </TouchableOpacity>
+        <>
+            <TouchableOpacity
+                onPress={pickImage}
+            >
+                <Image source={iconSource} />
+            </TouchableOpacity>
+        </>
     );
 };
 
