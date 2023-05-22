@@ -2,8 +2,11 @@ import { Image } from 'react-native';
 import { Asset } from 'expo-asset';
 import * as FileSystem from 'expo-file-system';
 
-import { UPLOAD_ENDPOINT, MORPH_ENDPOINT, AUTH_HEADER } from "@env"
 import people from '../../assets/people.json';
+
+const UPLOAD_ENDPOINT = 'https://pyaar.ai/morph/upload';
+const MORPH_ENDPOINT = 'https://pyaar.ai/morph';
+const AUTH_HEADER = 'ImageMorpherV1';
 
 const importAll = (r) => {
     return r.keys().map((fileName) => ({
