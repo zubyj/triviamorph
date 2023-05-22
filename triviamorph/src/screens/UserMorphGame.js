@@ -74,7 +74,7 @@ export default function UserMorphGame({ route }) {
         }
         if (isLoading) {
             return (
-                <LoadingScreen text={`Creating Question ${questionCount + 1} ...`} />
+                <LoadingScreen text={`Morphing with Person ${questionCount + 1} `} />
             )
         }
         if (morphUri && options.length > 0) {

@@ -10,7 +10,6 @@ export default function RandomMorphGame({ route }) {
 
     const { numQuestions } = route.params;
 
-    const [isCorrect, setIsCorrect] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [questionNum, setQuestionNum] = useState(0);
     const [score, setScore] = useState(0);
@@ -87,9 +86,7 @@ export default function RandomMorphGame({ route }) {
         // Check if the selected options are correct
         if (selected.every(option => correctOptions.includes(option))) {
             setScore(score + 1);
-            setIsCorrect(true);
         } else {
-            setIsCorrect(false);
         }
 
         setTimeout(nextQuestion, 2000);
@@ -99,13 +96,10 @@ export default function RandomMorphGame({ route }) {
         generateMorphOptions();
         setQuestionNum(questionNum + 1);
         setSelected([]);
-        setIsCorrect(false);
         setIsSubmitted(false);
     }
 
     const resetGameState = () => {
-        setSelectedMorph({});
-        setIsCorrect(false);
         setIsLoading(false);
         setQuestionCount(0);
         setScore(0);
