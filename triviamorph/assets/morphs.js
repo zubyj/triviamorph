@@ -69,23 +69,49 @@ export default [
         ],
     },
     {
-        "name": "Frida Kahlo",
-        "slug": "frida-kahlo",
+        "name": "Mahatma Gandhi",
+        "slug": "mahatma-gandhi",
         "morphs": [
             {
-                "name": "John F. Kennedy",
-                "slug": "john-f-kennedy",
-                "filename": require(`${basePath}kahlo/kahlo-kennedy.jpeg`),
-            },
-            {
-                "name": "George Washington",
-                "slug": "george-washington",
-                "filename": require(`${basePath}kahlo/kahlo-washington.jpeg`),
+                "name": "Elvis Presley",
+                "slug": "elvis-presley",
+                "filename": require(`${basePath}gandhi/gandhi-elvis.jpeg`),
             },
             {
                 "name": "Benjamin Franklin",
                 "slug": "benjamin-franklin",
+                "filename": require(`${basePath}gandhi/gandhi-franklin.jpeg`),
+            },
+            {
+                "name": "George Washington",
+                "slug": "george-washington",
+                "filename": require(`${basePath}gandhi/gandhi-washington.jpeg`),
+            },
+        ],
+        "wrongOptions": [
+            "Martin Luther King Jr",
+            "Pablo Picasso",
+            "Malcolm X",
+        ],
+    },
+    {
+        "name": "Frida Kahlo",
+        "slug": "frida-kahlo",
+        "morphs": [
+            {
+                "name": "Benjamin Franklin",
+                "slug": "benjamin-franklin",
                 "filename": require(`${basePath}kahlo/kahlo-franklin.jpeg`),
+            },
+            {
+                "name": "Audrey Hepburn",
+                "slug": "audrey-hepburn",
+                "filename": require(`${basePath}kahlo/kahlo-hepburn.jpeg`),
+            },
+            {
+                "name": "John F. Kennedy",
+                "slug": "john-f-kennedy",
+                "filename": require(`${basePath}kahlo/kahlo-kennedy.jpeg`),
             },
             {
                 "name": "Pablo Picasso",
@@ -93,10 +119,10 @@ export default [
                 "filename": require(`${basePath}kahlo/kahlo-picasso.jpeg`),
             },
             {
-                "name": "Audrey Hepburn",
-                "slug": "audrey-hepburn",
-                "filename": require(`${basePath}kahlo/kahlo-hepburn.jpeg`),
-            }
+                "name": "George Washington",
+                "slug": "george-washington",
+                "filename": require(`${basePath}kahlo/kahlo-washington.jpeg`),
+            },
         ],
         "wrongOptions": [
             "Amelia Earhart",
@@ -143,32 +169,6 @@ export default [
             "Malcolm X",
             "Mahatma Gandhi",
             "Abraham Lincoln",
-        ],
-    },
-    {
-        "name": "Mahatma Gandhi",
-        "slug": "mahatma-gandhi",
-        "morphs": [
-            {
-                "name": "Benjamin Franklin",
-                "slug": "benjamin-franklin",
-                "filename": require(`${basePath}gandhi/gandhi-franklin.jpeg`),
-            },
-            {
-                "name": "George Washington",
-                "slug": "george-washington",
-                "filename": require(`${basePath}gandhi/gandhi-washington.jpeg`),
-            },
-            {
-                "name": "Elvis Presley",
-                "slug": "elvis-presley",
-                "filename": require(`${basePath}gandhi/gandhi-elvis.jpeg`),
-            }
-        ],
-        "wrongOptions": [
-            "Martin Luther King Jr",
-            "Pablo Picasso",
-            "Malcolm X",
         ],
     },
     {
